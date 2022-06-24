@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 
-export default function Medicines() {
+function Medicines(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -34,7 +34,6 @@ export default function Medicines() {
         }
 
         handleClose()
-
     }
 
     let schema = yup.object().shape({
@@ -126,3 +125,4 @@ export default function Medicines() {
         </div>
     );
 }
+export default Medicines;
