@@ -6,64 +6,67 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+export default function Medicines() {
+    const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-  return (
-    <div>
-        <h2>Medicines</h2>
-      <Button variant="outlined" onClick={handleClickOpen}>
-      Open form 
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Form</DialogTitle>
-        <DialogContent>
-          {/* <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="name"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="password"
-            label="password"
-            type="password"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>submit</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+    return (
+        <div>
+            <h2>Medicines</h2>
+            <Button variant="outlined" onClick={handleClickOpen}>
+                Add Medicines
+            </Button>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle> Add Medicines</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        margin="dense"
+                        name="name"
+                        label="Medicine Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        name="price"
+                        label="Price"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        name="quantity"
+                        label="Quantity"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="expiry"
+                        label="Expiry"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Close</Button>
+                    <Button type='submit'>Add </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
 }
