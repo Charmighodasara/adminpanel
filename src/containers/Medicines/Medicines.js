@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
-import { useFormik } from 'formik';
+import { Form, Formik, useFormik } from 'formik';
 
 export default function Medicines() {
     const [open, setOpen] = React.useState(false);
@@ -18,7 +18,47 @@ export default function Medicines() {
 
     const handleClose = () => {
         setOpen(false);
+        formikobj.resetForm()
+
     };
+
+    const handleInsert = (values) => {
+        console.log(values);
+        let localdata = JSON.parse(localStorage.getItem("medicine"))
+
+        if (localdata === null) {
+            localStorage.setItem("medicine", JSON.stringify([values]))
+        } else {
+            localdata.push(values)
+            localStorage.setItem("medicine", JSON.stringify(localdata))
+        }
+
+        handleClose()
+
+    }
+
+    let schema = yup.object().shape({
+        name: yup.string().required("please enter Medicine Name"),
+        price: yup.number().required("please enter Medicine price").positive().integer(),
+        quantity: yup.string().required("please enter Medicine quantity"),
+        expiry: yup.string().required("please enter Medicine expiry"),
+    });
+
+    const formikobj = useFormik({
+        initialValues: {
+            name: '',
+            price: '',
+            quantity: '',
+            expiry: '',
+        },
+        validationSchema: schema,
+        onSubmit: values => {
+
+            handleInsert(values);
+        },
+    });
+
+    const { handleBlur, handleSubmit, handleChange, errors, touched } = formikobj
 
     return (
         <div>
@@ -26,46 +66,62 @@ export default function Medicines() {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Medicines
             </Button>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={open} onClose={handleClose} fullWidth>
                 <DialogTitle> Add Medicines</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        margin="dense"
-                        name="name"
-                        label="Medicine Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        name="price"
-                        label="Price"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        name="quantity"
-                        label="Quantity"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        id="expiry"
-                        label="Expiry"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Close</Button>
-                    <Button type='submit'>Add </Button>
-                </DialogActions>
+                <Formik values={formikobj}>
+                    <Form onSubmit={handleSubmit}>
+                        <DialogContent>
+                            <TextField
+                                margin="dense"
+                                name="name"
+                                label="Medicine Name"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {errors.name && touched.name ? <p>{errors.name}</p> : ''}
+                            <TextField
+                                margin="dense"
+                                name="price"
+                                label="Price"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {errors.price && touched.price ? <p>{errors.price}</p> : ''}
+                            <TextField
+                                margin="dense"
+                                name="quantity"
+                                label="Quantity"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {errors.quantity && touched.quantity ? <p>{errors.quantity}</p> : ''}
+                            <TextField
+                                margin="dense"
+                                name="expiry"
+                                label="Expiry"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
+                            <DialogActions>
+                                <Button onClick={handleClose}>Close</Button>
+                                <Button type='submit'>Add </Button>
+                            </DialogActions>
+                        </DialogContent>
+                    </Form>
+                </Formik>
             </Dialog>
         </div>
     );
