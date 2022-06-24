@@ -22,10 +22,10 @@ export default function FormDialog() {
     <div>
         <h2>Medicines</h2>
       <Button variant="outlined" onClick={handleClickOpen}>
-      Medicines
+      Open form 
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Form</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To subscribe to this website, please enter your email address here. We
@@ -35,15 +35,33 @@ export default function FormDialog() {
             autoFocus
             margin="dense"
             id="name"
+            label="name"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
             label="Email Address"
             type="email"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="password"
+            label="password"
+            type="password"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClose}>submit</Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -18,7 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import MedicationIcon from '@mui/icons-material/Medication';
+import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import PersonIcon from '@mui/icons-material/Person';
 import { NavLink } from 'react-router-dom';
 
@@ -90,8 +90,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 let dataObj = [
-    { label: "medicine", to: '/medicines', icon: MedicationIcon },
-    { label: "patients", to: '/patients', icon: PersonIcon }
+    { label: "medicine", to: '/medicines', icon: <MedicalServicesIcon /> },
+    { label: "patients", to: '/patients', icon: <PersonIcon /> }
 ]
 
 export default function Layout({ children }) {
@@ -139,22 +139,21 @@ export default function Layout({ children }) {
                     {dataObj.map((text, index) => (
                         <ListItem component={NavLink} to={text.to} exact key={text.label} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
-                                 sx={{
+                                sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
                                     px: 2.5,
-                                  }}
-                                >
-                                  <ListItemIcon
+                                }}
+                            >
+                                <ListItemIcon
                                     sx={{
-                                      minWidth: 0,
-                                      mr: open ? 3 : 'auto',
-                                      justifyContent: 'center',
+                                        minWidth: 0,
+                                        mr: open ? 3 : 'auto',
+                                        justifyContent: 'center',
                                     }}
-                                  >
-                                    {index % 2 === 0 ? <MedicationIcon /> : <PersonIcon />}
-                                    {/* {index=== text.icon} */}
-                                  </ListItemIcon>
+                                >
+                                    {text.icon}
+                                </ListItemIcon>
                                 <ListItemText primary={text.label} sx={{ opacity: open ? 1 : 0 }} />
 
                             </ListItemButton>
