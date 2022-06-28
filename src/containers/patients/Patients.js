@@ -89,10 +89,10 @@ function Patients(props) {
         <div>
             <h2>Patients</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Add Details
+                Add Appointment
             </Button>
             <Dialog open={open} onClose={handleClose} fullWidth>
-                <DialogTitle>Add medicine</DialogTitle>
+                <DialogTitle>patient Details</DialogTitle>
                 <Formik values={formikObj}>
                     <Form onSubmit={handleSubmit}>
                         <DialogContent>
