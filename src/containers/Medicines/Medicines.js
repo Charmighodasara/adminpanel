@@ -6,6 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
@@ -64,9 +66,9 @@ function Medicines(props) {
         validationSchema: schema,
         onSubmit: values => {
             handleInsert(values);
-        //  alert(JSON.stringify(values, null, 2));
+            //  alert(JSON.stringify(values, null, 2));
         },
-        enableReinitialize : true,
+        enableReinitialize: true,
     });
 
     const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
@@ -76,6 +78,16 @@ function Medicines(props) {
         { field: 'price', headerName: 'Price', width: 130 },
         { field: 'quantity', headerName: 'Quantity', width: 130 },
         { field: 'expiry', headerName: 'Expiry', width: 130 },
+        {
+            field: 'action',
+            headerName: 'Action',
+            width: 130,
+            renderCell: () => {
+                <IconButton aria-label="delete">
+                    <DeleteIcon />
+                </IconButton>
+            }
+        }
     ];
 
     const loadData = () => {
@@ -153,7 +165,7 @@ function Medicines(props) {
                         </DialogContent>
                     </Form>
                 </Formik>
-            </Dialog>   
+            </Dialog>
             <h4>Data table</h4>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
