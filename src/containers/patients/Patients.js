@@ -9,10 +9,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { render } from '@testing-library/react';
 
 function Patients(props) {
     const [open, setOpen] = useState(false);
-    const [data , setData ] =  useState([])
+    const [data, setData] = useState([])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -46,6 +49,7 @@ function Patients(props) {
     }
     let schema = yup.object().shape({
         name: yup.string().required("please enter patient Name"),
+        age: yup.number().required("please enter age").positive().integer(),
         phone: yup.number().required("please enter Phone number").positive().integer(),
         date: yup.string().required("please enter Appointment Date"),
     });
@@ -53,6 +57,7 @@ function Patients(props) {
     const formikObj = useFormik({
         initialValues: {
             name: '',
+            age: '',
             phone: '',
             date: '',
         },
@@ -64,12 +69,26 @@ function Patients(props) {
 
     });
 
+    const handleDelete =(params)=>{
+    console.log(params.id);
+    }
     const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
 
     const columns = [
         { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'age', headerName: 'Age', width: 200 },
         { field: 'phone', headerName: 'Contact Number', width: 200 },
         { field: 'date', headerName: 'Appointment Date', width: 200 },
+        {
+            field: 'action',
+            headerName: 'Action',
+            width: 200,
+            renderCell: (params) => (
+                <IconButton aria-label="delete" onClick={()=>handleDelete(params)}>
+                    <DeleteIcon />
+                </IconButton>
+            )
+        },
     ];
     const loadData = () => {
 
@@ -107,6 +126,17 @@ function Patients(props) {
                                 onBlur={handleBlur}
                             />
                             {errors.name && touched.name ? <p>{errors.name}</p> : ''}
+                            <TextField
+                                margin="dense"
+                                name="age"
+                                label="patient age"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {errors.age && touched.age ? <p>{errors.age}</p> : ''}
                             <TextField
                                 margin="dense"
                                 name="phone"

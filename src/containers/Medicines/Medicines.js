@@ -31,7 +31,7 @@ function Medicines(props) {
         console.log(values);
         let localData = JSON.parse(localStorage.getItem("medicine"))
 
-        let id = Math.floor(Math.random() * 10000);
+        let id = Math.floor(Math.random() * 1000);
         console.log(id);
 
         let data = {
@@ -73,6 +73,16 @@ function Medicines(props) {
 
     const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
 
+
+    const handleDelete =(params)=>{
+        // console.log(params.id);
+        let localData =JSON.parse(localStorage.getItem("medicine"));
+        let fData = localData.filter((l)=> l.id !== params.id)
+        localStorage.setItem("medicine", JSON.stringify(fData))
+        loadData()
+    }
+
+
     const columns = [
         { field: 'name', headerName: 'Medicine Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
@@ -82,11 +92,11 @@ function Medicines(props) {
             field: 'action',
             headerName: 'Action',
             width: 130,
-            renderCell: () => {
-                <IconButton aria-label="delete">
+            renderCell: (params) => (
+                <IconButton aria-label="delete" onClick={()=>handleDelete(params)}>
                     <DeleteIcon />
                 </IconButton>
-            }
+            )
         }
     ];
 
