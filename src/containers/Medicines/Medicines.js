@@ -11,6 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 function Medicines(props) {
@@ -77,7 +78,7 @@ function Medicines(props) {
         enableReinitialize: true,
     });
 
-    const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
+    const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
 
 
     const handleDelete = () => {
@@ -89,6 +90,11 @@ function Medicines(props) {
         handleClose()
     }
 
+    const handleEdit = (params) => {
+        handleClickOpen()
+        formikObj.setValues(params.row)
+
+    }
 
     const columns = [
         { field: 'name', headerName: 'Medicine Name', width: 130 },
@@ -100,9 +106,14 @@ function Medicines(props) {
             headerName: 'Action',
             width: 130,
             renderCell: (params) => (
-                <IconButton aria-label="delete" onClick={() => {handleClickDopen(); setDid(params.id)}}>
-                    <DeleteIcon />
-                </IconButton>
+                <>
+                    <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDid(params.id) }}>
+                        <DeleteIcon />
+                    </IconButton>
+                </>
             )
         }
     ];
@@ -148,6 +159,7 @@ function Medicines(props) {
                     <Form onSubmit={handleSubmit}>
                         <DialogContent>
                             <TextField
+                                value={values.name}
                                 margin="dense"
                                 name="name"
                                 label="Medicine name"
@@ -159,6 +171,7 @@ function Medicines(props) {
                             />
                             {errors.name && touched.name ? <p>{errors.name}</p> : ''}
                             <TextField
+                                value={values.price}
                                 margin="dense"
                                 name="price"
                                 label="price"
@@ -170,6 +183,7 @@ function Medicines(props) {
                             />
                             {errors.price && touched.price ? <p>{errors.price}</p> : ''}
                             <TextField
+                                value={values.quantity}
                                 margin="dense"
                                 name="quantity"
                                 label="quantity"
@@ -181,6 +195,7 @@ function Medicines(props) {
                             />
                             {errors.quantity && touched.quantity ? <p>{errors.quantity}</p> : ''}
                             <TextField
+                                value={values.expiry}
                                 margin="dense"
                                 name="expiry"
                                 label="expiry"
