@@ -69,14 +69,16 @@ function Patients(props) {
 
     });
 
-    const handleDelete =(params)=>{
-    console.log(params.id);
-    let localData =JSON.parse(localStorage.getItem("Patients"))
-    let fData = localData.filter((l) => l.id !== params.id)
-    localStorage.setItem("Patients", JSON.stringify(fData))
-    loadData()
+    const handleDelete = (params) => {
+        console.log(params.id);
+        let localData = JSON.parse(localStorage.getItem("Patients"))
+        let fData = localData.filter((l) => l.id !== params.id)
+        localStorage.setItem("Patients", JSON.stringify(fData))
+        loadData()
     }
     const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
+
+
 
     const columns = [
         { field: 'name', headerName: 'Name', width: 200 },
@@ -88,7 +90,7 @@ function Patients(props) {
             headerName: 'Action',
             width: 200,
             renderCell: (params) => (
-                <IconButton aria-label="delete" onClick={()=>handleDelete(params)}>
+                <IconButton aria-label="delete" onClick={() => handleDelete(params)}>
                     <DeleteIcon />
                 </IconButton>
             )
