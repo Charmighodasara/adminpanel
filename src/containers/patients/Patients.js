@@ -11,18 +11,24 @@ import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { render } from '@testing-library/react';
+
 
 function Patients(props) {
     const [open, setOpen] = useState(false);
+    const [dopen, setDopen] = useState(false);
     const [data, setData] = useState([])
+    const [did, setDid] = useState(0)
 
     const handleClickOpen = () => {
         setOpen(true);
     };
+    const handleClickDopen = () => {
+        setDopen(true);
+    };
 
     const handleClose = () => {
         setOpen(false);
+        setDopen(false);
         formikObj.resetForm()
 
     };
@@ -69,12 +75,13 @@ function Patients(props) {
 
     });
 
-    const handleDelete =(params)=>{
-    console.log(params.id);
-    let localData =JSON.parse(localStorage.getItem("Patients"))
-    let fData = localData.filter((l) => l.id !== params.id)
-    localStorage.setItem("Patients", JSON.stringify(fData))
-    loadData()
+    const handleDelete = () => {
+        // console.log(params.id);
+        let localData = JSON.parse(localStorage.getItem("Patients"))
+        let fData = localData.filter((l) => l.id !== did)
+        localStorage.setItem("Patients", JSON.stringify(fData))
+        loadData()
+        handleClose()
     }
     const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
 
@@ -88,7 +95,7 @@ function Patients(props) {
             headerName: 'Action',
             width: 200,
             renderCell: (params) => (
-                <IconButton aria-label="delete" onClick={()=>handleDelete(params)}>
+                <IconButton aria-label="delete" onClick={() => {handleClickDopen(); setDid(params.id)} }>
                     <DeleteIcon />
                 </IconButton>
             )
@@ -114,6 +121,22 @@ function Patients(props) {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Appointment
             </Button>
+            <Dialog
+                open={dopen}
+                onClose={ handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure to delete this data ?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={handleDelete} autoFocus>
+                        Yes
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
                 <DialogTitle>patient Details</DialogTitle>
                 <Formik values={formikObj}>
