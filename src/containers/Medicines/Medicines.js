@@ -15,7 +15,12 @@ import { DataGrid } from '@mui/x-data-grid';
 
 function Medicines(props) {
     const [open, setOpen] = useState(false);
+    const [dopen, setDopen] = useState(false);
     const [data, setData] = useState([]);
+    const [did, setDid] = useState(0)
+    const handleClickDopen = () => {
+        setDopen(true);
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -23,6 +28,7 @@ function Medicines(props) {
 
     const handleClose = () => {
         setOpen(false);
+        setDopen(false);
         formikObj.resetForm()
 
     };
@@ -74,12 +80,13 @@ function Medicines(props) {
     const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
 
 
-    const handleDelete =(params)=>{
+    const handleDelete = () => {
         // console.log(params.id);
-        let localData =JSON.parse(localStorage.getItem("medicine"));
-        let fData = localData.filter((l)=> l.id !== params.id)
+        let localData = JSON.parse(localStorage.getItem("medicine"));
+        let fData = localData.filter((l) => l.id !== did)
         localStorage.setItem("medicine", JSON.stringify(fData))
         loadData()
+        handleClose()
     }
 
 
@@ -93,7 +100,7 @@ function Medicines(props) {
             headerName: 'Action',
             width: 130,
             renderCell: (params) => (
-                <IconButton aria-label="delete" onClick={()=>handleDelete(params)}>
+                <IconButton aria-label="delete" onClick={() => {handleClickDopen(); setDid(params.id)}}>
                     <DeleteIcon />
                 </IconButton>
             )
@@ -119,6 +126,22 @@ function Medicines(props) {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Medicine
             </Button>
+            <Dialog
+                open={dopen}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure to delete this data ?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={handleDelete} autoFocus>
+                        Yes
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
                 <DialogTitle>Add medicine</DialogTitle>
                 <Formik values={formikObj}>
