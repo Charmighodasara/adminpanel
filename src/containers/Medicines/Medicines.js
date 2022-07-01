@@ -34,7 +34,6 @@ function Medicines(props) {
         setDopen(false);
         setToggle(false)
         formikObj.resetForm()
-
     };
 
     const handleInsert = (values) => {
@@ -59,6 +58,22 @@ function Medicines(props) {
         loadData()
     }
 
+    const handleUpdatedata = (values) => {
+        let localData = JSON.parse(localStorage.getItem("medicine"));
+
+        let uData = localData.map((l) => {
+            if (l.id === values.id) {
+                return values;
+            } else {
+                return l;
+            }
+        })
+        // console.log(values);
+        localStorage.setItem("medicine", JSON.stringify(uData))
+        handleClose()
+        loadData()
+    }
+
     let schema = yup.object().shape({
         name: yup.string().required("please enter Medicine Name"),
         price: yup.number().required("please enter Medicine price").positive().integer(),
@@ -75,7 +90,11 @@ function Medicines(props) {
         },
         validationSchema: schema,
         onSubmit: values => {
-            handleInsert(values);
+            if (toggle) {
+                handleUpdatedata(values)
+            } else {
+                handleInsert(values);
+            }
             //  alert(JSON.stringify(values, null, 2));
         },
         enableReinitialize: true,
@@ -95,9 +114,8 @@ function Medicines(props) {
 
     const handleEdit = (params) => {
         handleClickOpen()
-        let editRow = formikObj.setValues(params.row)
+        formikObj.setValues(params.row)
         console.log(params.row);
-        console.log(params.id);
         setToggle(true);
     }
 
@@ -159,7 +177,10 @@ function Medicines(props) {
                 </DialogActions>
             </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
-                <DialogTitle>Add medicine</DialogTitle>
+                {
+                    toggle ? <DialogTitle>Update Medicine Data</DialogTitle>
+                        : <DialogTitle>Add medicine</DialogTitle>
+                }
                 <Formik values={formikObj}>
                     <Form onSubmit={handleSubmit}>
                         <DialogContent>

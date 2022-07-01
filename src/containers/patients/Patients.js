@@ -17,8 +17,10 @@ import EditIcon from '@mui/icons-material/Edit';
 function Patients(props) {
     const [open, setOpen] = useState(false);
     const [dopen, setDopen] = useState(false);
-    const [data, setData] = useState([])
-    const [did, setDid] = useState(0)
+    const [data, setData] = useState([]);
+    const [did, setDid] = useState(0);
+    const [update, setUpdate] = useState(false);
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,21 +32,19 @@ function Patients(props) {
     const handleClose = () => {
         setOpen(false);
         setDopen(false);
+        setUpdate(false)
         formikObj.resetForm()
 
     };
     const handleInsert = (values) => {
         console.log(values);
         let localData = JSON.parse(localStorage.getItem("Patients"))
-
         let id = Math.floor(Math.random() * 10000);
         console.log(id);
-
         let data = {
             id: id,
             ...values
         }
-
         if (localData === null) {
             localStorage.setItem("Patients", JSON.stringify([data]))
         } else {
@@ -53,6 +53,20 @@ function Patients(props) {
         }
         handleClose()
         loadData()
+    }
+
+    const handleUpdatedata = (values) => {
+        let localData = JSON.parse(localStorage.getItem("Patients"));
+        let update = localData.map((l) => {
+            if (l.id === values.id) {
+                return values;
+            } else {
+                return l;
+            }
+        })
+        localStorage.setItem("Patients", JSON.stringify(update))
+        loadData()
+        handleClose();
     }
     let schema = yup.object().shape({
         name: yup.string().required("please enter patient Name"),
@@ -70,7 +84,11 @@ function Patients(props) {
         },
         validationSchema: schema,
         onSubmit: values => {
-            handleInsert(values)
+            if (update) {
+                handleUpdatedata(values)
+            } else {
+                handleInsert(values)
+            }
         },
         enableReinitialize: true,
 
@@ -89,6 +107,7 @@ function Patients(props) {
     const handleEdit = (params) => {
         handleClickOpen()
         formikObj.setValues(params.row)
+        setUpdate(true)
     }
 
     const columns = [
@@ -149,7 +168,12 @@ function Patients(props) {
                 </DialogActions>
             </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
-                <DialogTitle>patient Details</DialogTitle>
+                {
+                    update ?
+                        <DialogTitle>Update Patient Details</DialogTitle>
+                        :
+                        <DialogTitle>patient Details</DialogTitle>
+                }
                 <Formik values={formikObj}>
                     <Form onSubmit={handleSubmit}>
                         <DialogContent>
@@ -205,7 +229,11 @@ function Patients(props) {
                             {errors.date && touched.date ? <p>{errors.date}</p> : ''}
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
-                                <Button type="submit">Add</Button>
+                                {
+                                    update ?
+                                        <Button type="submit">Update</Button> :
+                                        <Button type="submit">Add</Button>
+                                }
                             </DialogActions>
                         </DialogContent>
                     </Form>
