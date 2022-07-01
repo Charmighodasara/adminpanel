@@ -107,6 +107,7 @@ function Patients(props) {
     const handleEdit = (params) => {
         handleClickOpen()
         formikObj.setValues(params.row)
+        // console.log(params.row);
         setUpdate(true)
     }
 
