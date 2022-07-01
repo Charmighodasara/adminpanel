@@ -15,21 +15,24 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 function Medicines(props) {
-    const [open, setOpen] = useState(false);
-    const [dopen, setDopen] = useState(false);
-    const [data, setData] = useState([]);
-    const [did, setDid] = useState(0)
+    const [open, setOpen] = useState(false);     // dialog open and close mate
+    const [dopen, setDopen] = useState(false);         // delete popup  
+    const [data, setData] = useState([]);             //row data , store localstorage
+    const [did, setDid] = useState(0)               // delete id
+    const [toggle, setToggle] = useState(false)          // update add toggle
     const handleClickDopen = () => {
         setDopen(true);
     };
 
     const handleClickOpen = () => {
         setOpen(true);
+
     };
 
     const handleClose = () => {
         setOpen(false);
         setDopen(false);
+        setToggle(false)
         formikObj.resetForm()
 
     };
@@ -92,8 +95,10 @@ function Medicines(props) {
 
     const handleEdit = (params) => {
         handleClickOpen()
-        formikObj.setValues(params.row)
-
+        let editRow = formikObj.setValues(params.row)
+        console.log(params.row);
+        console.log(params.id);
+        setToggle(true);
     }
 
     const columns = [
@@ -208,7 +213,10 @@ function Medicines(props) {
                             {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
-                                <Button type="submit">Add</Button>
+                                {
+                                    toggle ? <Button type="submit">Update</Button>
+                                        : <Button type="submit">Add</Button>
+                                }
                             </DialogActions>
                         </DialogContent>
                     </Form>
