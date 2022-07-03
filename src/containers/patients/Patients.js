@@ -39,7 +39,7 @@ function Patients(props) {
     const handleInsert = (values) => {
         console.log(values);
         let localData = JSON.parse(localStorage.getItem("Patients"))
-        let id = Math.floor(Math.random() * 10000);
+        let id = Math.floor(Math.random() * 1000);
         console.log(id);
         let data = {
             id: id,
@@ -57,11 +57,11 @@ function Patients(props) {
 
     const handleUpdatedata = (values) => {
         let localData = JSON.parse(localStorage.getItem("Patients"));
-        let update = localData.map((l) => {
-            if (l.id === values.id) {
+        let update = localData.map((p) => {
+            if (p.id === values.id) {
                 return values;
             } else {
-                return l;
+                return p;
             }
         })
         localStorage.setItem("Patients", JSON.stringify(update))
@@ -71,8 +71,8 @@ function Patients(props) {
     let schema = yup.object().shape({
         name: yup.string().required("please enter patient Name"),
         age: yup.number().required("please enter age").positive().integer(),
-        phone: yup.number().required("please enter Phone number").positive().integer(),
-        date: yup.string().required("please enter Appointment Date"),
+        phone: yup.number().required("please enter phone number").positive().integer(),
+        city: yup.string().required("please enter your city name"),
     });
 
     const formikObj = useFormik({
@@ -80,7 +80,7 @@ function Patients(props) {
             name: '',
             age: '',
             phone: '',
-            date: '',
+            city: '',
         },
         validationSchema: schema,
         onSubmit: values => {
@@ -102,7 +102,8 @@ function Patients(props) {
         loadData()
         handleClose()
     }
-    const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
+
+    const { handleChange, handleSubmit, handleBlur,errors, touched, values } = formikObj;
 
     const handleEdit = (params) => {
         handleClickOpen()
@@ -115,7 +116,7 @@ function Patients(props) {
         { field: 'name', headerName: 'Name', width: 200 },
         { field: 'age', headerName: 'Age', width: 200 },
         { field: 'phone', headerName: 'Contact Number', width: 200 },
-        { field: 'date', headerName: 'Appointment Date', width: 200 },
+        { field: 'city', headerName: 'City', width: 200 },
         {
             field: 'action',
             headerName: 'Action',
@@ -132,19 +133,16 @@ function Patients(props) {
             )
         },
     ];
+
     const loadData = () => {
-
         let localData = JSON.parse(localStorage.getItem("Patients"));
-
         if (localData !== null) {
             setData(localData);
         }
     }
-
     useEffect(() => {
         loadData()
     }, [])
-
 
     return (
         <div>
@@ -219,15 +217,15 @@ function Patients(props) {
                             <TextField
                                 value={values.date}
                                 margin="dense"
-                                name="date"
-                                label="Appointment Date"
-                                type="datetime"
+                                name="city"
+                                label="City Name"
+                                type="text"
                                 fullWidth
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                            {errors.date && touched.date ? <p>{errors.date}</p> : ''}
+                            {errors.city && touched.city ? <p>{errors.city}</p> : ''}
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
                                 {

@@ -13,20 +13,19 @@ import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 
-
 function Medicines(props) {
-    const [open, setOpen] = useState(false);     // dialog open and close mate
-    const [dopen, setDopen] = useState(false);         // delete popup  
-    const [data, setData] = useState([]);             //row data , store localstorage
-    const [did, setDid] = useState(0)               // delete id
-    const [toggle, setToggle] = useState(false)          // update add toggle
+    const [open, setOpen] = useState(false);            // dialog open and close 
+    const [dopen, setDopen] = useState(false);          // delete popup  
+    const [data, setData] = useState([]);               //row data , store localstorage
+    const [did, setDid] = useState(0)                   // delete id
+    const [toggle, setToggle] = useState(false)         // update, add toggle
+    
     const handleClickDopen = () => {
         setDopen(true);
     };
 
     const handleClickOpen = () => {
         setOpen(true);
-
     };
 
     const handleClose = () => {
@@ -35,19 +34,16 @@ function Medicines(props) {
         setToggle(false)
         formikObj.resetForm()
     };
-
+// handleinsert  for data insert 
     const handleInsert = (values) => {
         console.log(values);
         let localData = JSON.parse(localStorage.getItem("medicine"))
-
         let id = Math.floor(Math.random() * 1000);
         console.log(id);
-
         let data = {
             id: id,
             ...values
         }
-
         if (localData === null) {
             localStorage.setItem("medicine", JSON.stringify([data]))
         } else {
@@ -58,9 +54,9 @@ function Medicines(props) {
         loadData()
     }
 
+// handleUpdatedata for data update in localstorage
     const handleUpdatedata = (values) => {
         let localData = JSON.parse(localStorage.getItem("medicine"));
-
         let uData = localData.map((l) => {
             if (l.id === values.id) {
                 return values;
@@ -74,13 +70,14 @@ function Medicines(props) {
         loadData()
     }
 
+// schema
     let schema = yup.object().shape({
         name: yup.string().required("please enter Medicine Name"),
         price: yup.number().required("please enter Medicine price").positive().integer(),
         quantity: yup.string().required("please enter Medicine quantity"),
         expiry: yup.string().required("please enter Medicine expiry"),
     });
-
+// formik 
     const formikObj = useFormik({
         initialValues: {
             name: '',
@@ -99,10 +96,10 @@ function Medicines(props) {
         },
         enableReinitialize: true,
     });
-
+// formik destructring 
     const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
 
-
+// handleDelete for delete data record     
     const handleDelete = () => {
         // console.log(params.id);
         let localData = JSON.parse(localStorage.getItem("medicine"));
@@ -111,14 +108,14 @@ function Medicines(props) {
         loadData()
         handleClose()
     }
-
+// handleEdit for click on edit button and get row data
     const handleEdit = (params) => {
         handleClickOpen()
         formikObj.setValues(params.row)
         console.log(params.row);
         setToggle(true);
     }
-
+// columns 
     const columns = [
         { field: 'name', headerName: 'Medicine Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
@@ -140,20 +137,16 @@ function Medicines(props) {
             )
         }
     ];
-
+// load data 
     const loadData = () => {
-
         let localData = JSON.parse(localStorage.getItem("medicine"));
-
         if (localData !== null) {
             setData(localData);
         }
     }
-
     useEffect(() => {
         loadData()
     }, [])
-
     return (
         <div>
             <h2>Medicines</h2>

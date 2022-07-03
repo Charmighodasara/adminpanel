@@ -16,10 +16,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+import MedicationIcon from '@mui/icons-material/Medication';
 import PersonIcon from '@mui/icons-material/Person';
+import AccessibleIcon from '@mui/icons-material/Accessible';
 import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -90,8 +89,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 let dataObj = [
-    { label: "medicine", to: '/medicines', icon: <MedicalServicesIcon /> },
-    { label: "patients", to: '/patients', icon: <PersonIcon /> }
+    { label: "medicine", to: '/medicines', icon: <MedicationIcon /> },
+    { label: "patients", to: '/patients', icon: <AccessibleIcon /> },
+    { label: "Doctors", to: '/doctors', icon: <PersonIcon /> }
 ]
 
 export default function Layout({ children }) {
@@ -124,7 +124,7 @@ export default function Layout({ children }) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Mini variant drawer
+                       City Hospital 
                     </Typography>
                 </Toolbar>
             </AppBar>
