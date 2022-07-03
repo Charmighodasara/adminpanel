@@ -11,7 +11,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 function Doctors(props) {
     const [open, setOpen] = React.useState(false);
-    const [data , setData] = useState([])
+    const [data, setData] = useState([])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -24,18 +24,18 @@ function Doctors(props) {
 
     const handleInsert = (values) => {
         console.log(values);
-        let localData = JSON.parse(localStorage.getItem("doctor"))
-        let id = Math.floor(Math.random() * 1000);
+        let localData = JSON.parse(localStorage.getItem("doctors"))
+        let id = Math.floor(Math.random() * 10000);
         console.log(id);
         let data = {
             id: id,
             ...values
         }
         if (localData === null) {
-            localStorage.setItem("doctor", JSON.stringify([data]))
+            localStorage.setItem("doctors", JSON.stringify([data]))
         } else {
             localData.push(data)
-            localStorage.setItem("doctor", JSON.stringify(localData))
+            localStorage.setItem("doctors", JSON.stringify(localData))
         }
         handleClose()
         loadData()
@@ -69,12 +69,14 @@ function Doctors(props) {
         { field: 'lname', headerName: 'Last name', width: 180 },
         { field: 'specialty', headerName: 'Specialty', width: 180 },
     ];
+
     const loadData = () => {
-        let localData = JSON.parse(localStorage.getItem("doctor"));
+        let localData = JSON.parse(localStorage.getItem("doctors"));
         if (localData !== null) {
             setData(localData);
         }
     }
+
     useEffect(() => {
         loadData()
     }, [])
