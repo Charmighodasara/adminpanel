@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,9 +7,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
+import { DataGrid } from '@mui/x-data-grid';
 
 function Doctors(props) {
     const [open, setOpen] = React.useState(false);
+    const [data , setData] = useState([])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -19,18 +21,26 @@ function Doctors(props) {
         setOpen(false);
         formik.resetForm()
     };
+
     const handleInsert = (values) => {
         console.log(values);
         let localData = JSON.parse(localStorage.getItem("doctor"))
-
+        let id = Math.floor(Math.random() * 1000);
+        console.log(id);
+        let data = {
+            id: id,
+            ...values
+        }
         if (localData === null) {
-            localStorage.setItem("doctor", JSON.stringify([values]))
+            localStorage.setItem("doctor", JSON.stringify([data]))
+        } else {
+            localData.push(data)
+            localStorage.setItem("doctor", JSON.stringify(localData))
         }
-        else {
-            localData.push(values)
-            localStorage.setItem("doctor", JSON.stringify([localData]))
-        }
+        handleClose()
+        loadData()
     }
+
     let schema = yup.object().shape({
         code: yup.number().required("please enter doctor's code number").positive().integer(),
         fname: yup.string().required("please enter first name"),
@@ -52,8 +62,23 @@ function Doctors(props) {
 
         },
     });
-
     const { handleBlur, handleSubmit, handleChange, values, errors, touched } = formik
+    const columns = [
+        { field: 'code', headerName: 'Code', width: 180 },
+        { field: 'fname', headerName: 'First name', width: 180 },
+        { field: 'lname', headerName: 'Last name', width: 180 },
+        { field: 'specialty', headerName: 'Specialty', width: 180 },
+    ];
+    const loadData = () => {
+        let localData = JSON.parse(localStorage.getItem("doctor"));
+        if (localData !== null) {
+            setData(localData);
+        }
+    }
+    useEffect(() => {
+        loadData()
+    }, [])
+
     return (
         <div>
             <h2>Doctors</h2>
@@ -117,6 +142,16 @@ function Doctors(props) {
                     </Form>
                 </Formik>
             </Dialog>
+            <h3>Doctor's Details</h3>
+            <div style={{ height: 400, width: '100%' }}>
+                <DataGrid
+                    rows={data}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    checkboxSelection
+                />
+            </div>
         </div>
     );
 }
