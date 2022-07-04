@@ -77,6 +77,7 @@ function Medicines(props) {
         quantity: yup.string().required("please enter Medicine quantity"),
         expiry: yup.string().required("please enter Medicine expiry"),
     });
+    
 // formik 
     const formikObj = useFormik({
         initialValues: {
@@ -108,6 +109,7 @@ function Medicines(props) {
         loadData()
         handleClose()
     }
+
 // handleEdit for click on edit button and get row data
     const handleEdit = (params) => {
         handleClickOpen()
@@ -115,6 +117,7 @@ function Medicines(props) {
         console.log(params.row);
         setToggle(true);
     }
+
 // columns 
     const columns = [
         { field: 'name', headerName: 'Medicine Name', width: 130 },
