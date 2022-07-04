@@ -89,8 +89,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 let dataObj = [
-    { label: "medicine", to: '/medicines', icon: <MedicationIcon /> },
-    { label: "patients", to: '/patients', icon: <AccessibleIcon /> },
+    { label: "Medicine", to: '/medicines', icon: <MedicationIcon /> },
+    { label: "Patients", to: '/patients', icon: <AccessibleIcon /> },
     { label: "Doctors", to: '/doctors', icon: <PersonIcon /> }
 ]
 
