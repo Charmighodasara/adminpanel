@@ -18,6 +18,7 @@ function Doctors(props) {
     const [dopen, setDopen] = useState(false);
     const [deleteid, setDeleteid] = useState(0);
     const [update, setUpdate] = useState(false)
+    const [search, setSearch] = useState([])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -140,12 +141,34 @@ function Doctors(props) {
         loadData()
     }, [])
 
+    const handleSearch = (val) => {
+        let localData = JSON.parse(localStorage.getItem("doctors"));
+        let fData = localData.filter((d) => (
+            d.code.toString().includes(val) ||
+            d.fname.toLowerCase().includes(val.toLowerCase()) ||
+            d.lname.toLowerCase().includes(val.toLowerCase()) ||
+            d.specialty.toLowerCase().includes(val.toLowerCase())
+        ))
+        console.log(fData);
+        setSearch(fData)
+    }
+    const finalData =  search.length > 0 ? search :  data 
+
     return (
         <div>
             <h2>Doctors</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Details
             </Button>
+            <TextField
+                margin="dense"
+                name="Search"
+                label="Search Doctor's Details"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={(e) => handleSearch(e.target.value)}
+            />
             <Dialog
                 open={dopen}
                 onClose={handleClose}
@@ -234,7 +257,7 @@ function Doctors(props) {
             <h3>Doctor's Details</h3>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={data}
+                    rows={finalData}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}

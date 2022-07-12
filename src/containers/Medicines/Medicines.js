@@ -19,7 +19,8 @@ function Medicines(props) {
     const [data, setData] = useState([]);               //row data , store localstorage
     const [did, setDid] = useState(0)                   // delete id
     const [toggle, setToggle] = useState(false)         // update, add toggle
-    
+    const [search , setSearch]= useState([])
+
     const handleClickDopen = () => {
         setDopen(true);
     };
@@ -34,7 +35,7 @@ function Medicines(props) {
         setToggle(false)
         formikObj.resetForm()
     };
-// handleinsert  for data insert 
+    // handleinsert  for data insert 
     const handleInsert = (values) => {
         console.log(values);
         let localData = JSON.parse(localStorage.getItem("medicine"))
@@ -54,7 +55,7 @@ function Medicines(props) {
         loadData()
     }
 
-// handleUpdatedata for data update in localstorage
+    // handleUpdatedata for data update in localstorage
     const handleUpdatedata = (values) => {
         let localData = JSON.parse(localStorage.getItem("medicine"));
         let uData = localData.map((l) => {
@@ -70,15 +71,15 @@ function Medicines(props) {
         loadData()
     }
 
-// schema
+    // schema
     let schema = yup.object().shape({
         name: yup.string().required("please enter Medicine Name"),
         price: yup.number().required("please enter Medicine price").positive().integer(),
         quantity: yup.string().required("please enter Medicine quantity"),
         expiry: yup.string().required("please enter Medicine expiry"),
     });
-    
-// formik 
+
+    // formik 
     const formikObj = useFormik({
         initialValues: {
             name: '',
@@ -97,10 +98,10 @@ function Medicines(props) {
         },
         enableReinitialize: true,
     });
-// formik destructring 
+    // formik destructring 
     const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
 
-// handleDelete for delete data record     
+    // handleDelete for delete data record     
     const handleDelete = () => {
         // console.log(params.id);
         let localData = JSON.parse(localStorage.getItem("medicine"));
@@ -110,7 +111,7 @@ function Medicines(props) {
         handleClose()
     }
 
-// handleEdit for click on edit button and get row data
+    // handleEdit for click on edit button and get row data
     const handleEdit = (params) => {
         handleClickOpen()
         formikObj.setValues(params.row)
@@ -118,7 +119,7 @@ function Medicines(props) {
         setToggle(true);
     }
 
-// columns 
+    // columns 
     const columns = [
         { field: 'name', headerName: 'Medicine Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
@@ -140,7 +141,7 @@ function Medicines(props) {
             )
         }
     ];
-// load data 
+    // load data 
     const loadData = () => {
         let localData = JSON.parse(localStorage.getItem("medicine"));
         if (localData !== null) {
@@ -150,12 +151,36 @@ function Medicines(props) {
     useEffect(() => {
         loadData()
     }, [])
+
+    const hancleSearch = (value) => {
+        let localData = JSON.parse(localStorage.getItem("medicine"));
+        let fData = localData.filter((l) => (
+            l.name.toLowerCase().includes(value.toLowerCase()) ||
+            l.price.toString().includes(value) ||
+            l.quantity.toString().includes(value) ||
+            l.expiry.toString().includes(value)
+        ))
+        setSearch(fData)
+        // console.log(fData);
+    }
+
+    const finalData =  search.length > 0 ? search :  data 
+
     return (
         <div>
             <h2>Medicines</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Medicine
             </Button>
+            <TextField
+                margin="dense"
+                name="search"
+                label="Search Medicine "
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={(e) => hancleSearch(e.target.value)}
+            />
             <Dialog
                 open={dopen}
                 onClose={handleClose}
@@ -242,7 +267,7 @@ function Medicines(props) {
             <h4>Data table</h4>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={data}
+                    rows={finalData}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}

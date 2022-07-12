@@ -20,6 +20,7 @@ function Patients(props) {
     const [data, setData] = useState([]);
     const [did, setDid] = useState(0);
     const [update, setUpdate] = useState(false);
+    const [search, setSearch] = useState([])
 
 
     const handleClickOpen = () => {
@@ -103,7 +104,7 @@ function Patients(props) {
         handleClose()
     }
 
-    const { handleChange, handleSubmit, handleBlur,errors, touched, values } = formikObj;
+    const { handleChange, handleSubmit, handleBlur, errors, touched, values } = formikObj;
 
     const handleEdit = (params) => {
         handleClickOpen()
@@ -144,12 +145,34 @@ function Patients(props) {
         loadData()
     }, [])
 
+    const handleSearch = (value) => {
+        let localData = JSON.parse(localStorage.getItem("Patients"));
+
+        let fData = localData.filter((p) => (
+            p.name.toLowerCase().includes(value.toLowerCase()) ||
+            p.age.toString().includes(value) ||
+            p.phone.toString().includes(value) ||
+            p.city.toLowerCase().includes(value.toLowerCase())
+        ))
+        setSearch(fData)
+        console.log(fData);
+    }
+    const finalData =  search.length > 0 ? search :  data 
     return (
         <div>
             <h2>Patients</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Appointment
             </Button>
+            <TextField
+                margin="dense"
+                name="search"
+                label="search patient Details"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={(e) => handleSearch(e.target.value)}
+            />
             <Dialog
                 open={dopen}
                 onClose={handleClose}
@@ -240,7 +263,7 @@ function Patients(props) {
             </Dialog>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={data}
+                    rows={finalData}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
