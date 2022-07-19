@@ -12,7 +12,8 @@ import Counter from "./containers/counter/Counter";
 
 function App() {
 
-    const store = conFigure(rootCounter)
+    const store = conFigure()
+
   return (
     <>
     <Provider store={store}>

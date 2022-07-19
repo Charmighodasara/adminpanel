@@ -6,12 +6,13 @@ import { decrement, increment } from '../../redux/Action/Counter.action';
 function Counter(props) {
     const c = useSelector(state => state.counter)
     const dispatch = useDispatch()
+
     const handleIncrement = () => {
-        dispatch(increment)
+        dispatch(increment())
     }
 
     const handleDecrement = () => {
-        dispatch(decrement)
+        dispatch(decrement())
     }
     return (
         <div>
