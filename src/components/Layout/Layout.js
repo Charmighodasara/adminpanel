@@ -20,6 +20,7 @@ import MedicationIcon from '@mui/icons-material/Medication';
 import PersonIcon from '@mui/icons-material/Person';
 import AccessibleIcon from '@mui/icons-material/Accessible';
 import { NavLink } from 'react-router-dom';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 
 const drawerWidth = 240;
 
@@ -91,7 +92,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 let dataObj = [
     { label: "Medicine", to: '/medicines', icon: <MedicationIcon /> },
     { label: "Patients", to: '/patients', icon: <AccessibleIcon /> },
-    { label: "Doctors", to: '/doctors', icon: <PersonIcon /> }
+    { label: "Doctors", to: '/doctors', icon: <PersonIcon /> },
+    { label: "Counter", to: '/counter', icon: <HourglassBottomIcon /> }
 ]
 
 export default function Layout({ children }) {
