@@ -152,7 +152,7 @@ function Medicines(props) {
         loadData()
     }, [])
 
-    const hancleSearch = (value) => {
+    const handleSearch = (value) => {
         let localData = JSON.parse(localStorage.getItem("medicine"));
         let fData = localData.filter((l) => (
             l.name.toLowerCase().includes(value.toLowerCase()) ||
@@ -179,7 +179,7 @@ function Medicines(props) {
                 type="text"
                 fullWidth
                 variant="standard"
-                onChange={(e) => hancleSearch(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
             />
             <Dialog
                 open={dopen}
