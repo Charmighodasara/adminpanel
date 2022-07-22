@@ -1,6 +1,6 @@
 
 import * as ActionType from "../ActionType"
-import { counterReducer } from "../Reducer/Counter.reducer"
+
 
 export const increment = () => (dispatch) => {
 
