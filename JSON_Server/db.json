@@ -38,18 +38,51 @@
       "price": 225,
       "quantity": 16,
       "expiry": 2022
+    },
+    {
+      
+      "id": 5,
+      "name": "STU",
+      "price": 225,
+      "quantity": 16,
+      "expiry": 2022
     }
   ],
-  "comments": [
+  "Patients": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 2
+      "name": "abcd",
+      "age": 20,
+      "phone":1234567890,
+      "city": "surat"
     },
     {
       "id": 2,
-      "body": "some comment",
-      "postId": 2
+      "name": "XYZ",
+      "age": 30,
+      "phone":1234567890,
+      "city": "rajkot"
+    },
+    {
+      "id": 3,
+      "name": "STUV",
+      "age": 25,
+      "phone":1234567890,
+      "city": "gandhinagar"
+    },
+    {
+      "id": 4,
+      "name": "MNO",
+      "age": 55,
+      "phone":1234567890,
+      "city": "ahemdabad"
+    },
+    {
+      "id": 5,
+      "name": "PQR",
+      "age": 22,
+      "phone":"1533131316",
+      "city": "vadodra"
     }
   ],
   "profile": {
