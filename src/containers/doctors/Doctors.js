@@ -11,6 +11,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDoctors } from '../../redux/Action/Doctore.action';
 
 function Doctors(props) {
     const [open, setOpen] = useState(false);
@@ -68,7 +70,7 @@ function Doctors(props) {
     }
 
     let schema = yup.object().shape({
-        code: yup.number().required("please enter doctor's code number").positive().integer(),
+        id: yup.number().required("please enter doctor's code number").positive().integer(),
         fname: yup.string().required("please enter first name"),
         lname: yup.string().required("please enter last name"),
         specialty: yup.string().required("please enter doctor's specialty"),
@@ -76,7 +78,7 @@ function Doctors(props) {
 
     const formik = useFormik({
         initialValues: {
-            code: '',
+            id: '',
             fname: '',
             lname: '',
             specialty: '',
@@ -109,7 +111,7 @@ function Doctors(props) {
     }
 
     const columns = [
-        { field: 'code', headerName: 'Code', width: 180 },
+        { field: 'id', headerName: 'Code', width: 180 },
         { field: 'fname', headerName: 'First name', width: 180 },
         { field: 'lname', headerName: 'Last name', width: 180 },
         { field: 'specialty', headerName: 'Specialty', width: 180 },
@@ -137,14 +139,19 @@ function Doctors(props) {
             setData(localData);
         }
     }
+
+    const dispatch = useDispatch()
+    const doctors = useSelector(state => state.doctors)
+
     useEffect(() => {
-        loadData()
+        // loadData()
+        dispatch(getDoctors())
     }, [])
 
     const handleSearch = (val) => {
         let localData = JSON.parse(localStorage.getItem("doctors"));
         let fData = localData.filter((d) => (
-            d.code.toString().includes(val) ||
+            d.id.toString().includes(val) ||
             d.fname.toLowerCase().includes(val.toLowerCase()) ||
             d.lname.toLowerCase().includes(val.toLowerCase()) ||
             d.specialty.toLowerCase().includes(val.toLowerCase())
@@ -198,7 +205,7 @@ function Doctors(props) {
                             <TextField
                                 value={values.code}
                                 margin="dense"
-                                name="code"
+                                name="id"
                                 label="Doctor's Code"
                                 type="number"
                                 fullWidth
@@ -257,7 +264,7 @@ function Doctors(props) {
             <h3>Doctor's Details</h3>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={finalData}
+                    rows={doctors.doctors}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}

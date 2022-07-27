@@ -8,7 +8,6 @@
       "expiry": 2024
     },
     {
-      
       "id": 2,
       "name": "XYZ",
       "price": 350,
@@ -16,7 +15,6 @@
       "expiry": 2025
     },
     {
-      
       "id": 3,
       "name": "MNO",
       "price": 200,
@@ -24,7 +22,6 @@
       "expiry": 2025
     },
     {
-      
       "id": 4,
       "name": "PQR",
       "price": 110,
@@ -32,7 +29,6 @@
       "expiry": 2023
     },
     {
-      
       "id": 5,
       "name": "STU",
       "price": 225,
@@ -40,7 +36,6 @@
       "expiry": 2022
     },
     {
-      
       "id": 5,
       "name": "STU",
       "price": 225,
@@ -53,39 +48,69 @@
       "id": 1,
       "name": "abcd",
       "age": 20,
-      "phone":1234567890,
+      "phone": 1234567890,
       "city": "surat"
     },
     {
       "id": 2,
       "name": "XYZ",
       "age": 30,
-      "phone":1234567890,
+      "phone": 1234567890,
       "city": "rajkot"
     },
     {
       "id": 3,
       "name": "STUV",
       "age": 25,
-      "phone":1234567890,
+      "phone": 1234567890,
       "city": "gandhinagar"
     },
     {
       "id": 4,
       "name": "MNO",
       "age": 55,
-      "phone":1234567890,
+      "phone": 1234567890,
       "city": "ahemdabad"
     },
     {
       "id": 5,
       "name": "PQR",
       "age": 22,
-      "phone":"1533131316",
+      "phone": "1533131316",
       "city": "vadodra"
     }
   ],
-  "profile": {
-    "name": "typicode"
+
+  "Doctore": [
+  {
+    "id": 166,
+    "fname": "PQR",
+    "lname": "A",
+    "specialty": "Orthopedics"
+  },
+  {
+    "id": 212,
+    "fname": "ABC",
+    "lname": "D",
+    "specialty": "General Surgery"
+  },
+  {
+    "id": 304,
+    "fname": "Xyz",
+    "lname": "G",
+    "specialty": "Dentist."
+  },
+  {
+    "id": 256,
+    "fname": "Mno",
+    "lname": "E",
+    "specialty": "Gynecologist"
+  },
+  {
+    "id": 785,
+    "fname": "Bcd",
+    "lname": "H",
+    "specialty": "Cardiologist"
   }
+]
 }
