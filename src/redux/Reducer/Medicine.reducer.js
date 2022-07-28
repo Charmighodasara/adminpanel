@@ -7,7 +7,7 @@ const initval = {
 }
 
 export const MedicineReducer = (state = initval, action) => {
-    console.log( action.payload);
+    console.log(action.payload);
     switch (action.type) {
         case Actiontypes.MEDICINE_GETDATA:
             return {
@@ -16,7 +16,20 @@ export const MedicineReducer = (state = initval, action) => {
                 medicine: action.payload,
                 error: ''
             }
-            
+        case Actiontypes.LOADING_MEDICINES:
+            return {
+                ...state,
+                isLoading: true,
+                error: ''
+            }
+        case Actiontypes.ERROR_MEDICINES:
+            return {
+                ...state,
+                isLoading: false,
+                medicine: [],
+                error: action.payload
+            }
+
         default:
             return state;
     }
