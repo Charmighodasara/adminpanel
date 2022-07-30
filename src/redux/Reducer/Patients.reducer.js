@@ -17,6 +17,19 @@ export const patientsReducer = (state = initVal, action) => {
                 patients: action.payload,
                 error: ''
             }
+        case Actiontypes.LOADING_PATIENTS:
+            return {
+                ...state,
+                isLoading: true,
+                error: ''
+            }
+        case Actiontypes.ERROR_PATIENTS:
+            return {
+                ...state,
+                isLoading: false,
+                patients: [],
+                error: action.payload
+            }
 
         default:
             return state;

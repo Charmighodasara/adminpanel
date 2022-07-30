@@ -144,7 +144,7 @@ function Patients(props) {
             setData(localData);
         }
     }
-    
+
     const dispatch = useDispatch()
     const patients = useSelector(state => state.patients)
 
@@ -166,119 +166,130 @@ function Patients(props) {
         setSearch(fData)
         console.log(fData);
     }
-    const finalData =  search.length > 0 ? search :  data 
+    const finalData = search.length > 0 ? search : data
     return (
         <div>
-            <h2>Patients</h2>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Add Appointment
-            </Button>
-            <TextField
-                margin="dense"
-                name="search"
-                label="search patient Details"
-                type="text"
-                fullWidth
-                variant="standard"
-                onChange={(e) => handleSearch(e.target.value)}
-            />
-            <Dialog
-                open={dopen}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    {"Are you sure to delete this data ?"}
-                </DialogTitle>
-                <DialogActions>
-                    <Button onClick={handleClose}>No</Button>
-                    <Button onClick={handleDelete} autoFocus>
-                        Yes
-                    </Button>
-                </DialogActions>
-            </Dialog>
-            <Dialog open={open} onClose={handleClose} fullWidth>
-                {
-                    update ?
-                        <DialogTitle>Update Patient Details</DialogTitle>
-                        :
-                        <DialogTitle>patient Details</DialogTitle>
-                }
-                <Formik values={formikObj}>
-                    <Form onSubmit={handleSubmit}>
-                        <DialogContent>
-                            <TextField
-                                value={values.name}
-                                margin="dense"
-                                name="name"
-                                label="patient name"
-                                type="text"
-                                fullWidth
-                                variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.name && touched.name ? <p>{errors.name}</p> : ''}
-                            <TextField
-                                value={values.age}
-                                margin="dense"
-                                name="age"
-                                label="patient age"
-                                type="text"
-                                fullWidth
-                                variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.age && touched.age ? <p>{errors.age}</p> : ''}
-                            <TextField
-                                value={values.phone}
-                                margin="dense"
-                                name="phone"
-                                label="Contact Number"
-                                type="tel"
-                                fullWidth
-                                variant="standard"
-                                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                                maxlength="10"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.phone && touched.phone ? <p>{errors.phone}</p> : ''}
-                            <TextField
-                                value={values.date}
-                                margin="dense"
-                                name="city"
-                                label="City Name"
-                                type="text"
-                                fullWidth
-                                variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.city && touched.city ? <p>{errors.city}</p> : ''}
+            {
+                patients.isLoading ?
+                    <p>Loading....</p>
+                    :
+                    patients.error !== ''?
+                    <p>{patients.error}</p>
+                    :
+                    <div>
+                        <h2>Patients</h2>
+                        <Button variant="outlined" onClick={handleClickOpen}>
+                            Add Appointment
+                        </Button>
+                        <TextField
+                            margin="dense"
+                            name="search"
+                            label="search patient Details"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            onChange={(e) => handleSearch(e.target.value)}
+                        />
+                        <Dialog
+                            open={dopen}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">
+                                {"Are you sure to delete this data ?"}
+                            </DialogTitle>
                             <DialogActions>
-                                <Button onClick={handleClose}>Cancel</Button>
-                                {
-                                    update ?
-                                        <Button type="submit">Update</Button> :
-                                        <Button type="submit">Add</Button>
-                                }
+                                <Button onClick={handleClose}>No</Button>
+                                <Button onClick={handleDelete} autoFocus>
+                                    Yes
+                                </Button>
                             </DialogActions>
-                        </DialogContent>
-                    </Form>
-                </Formik>
-            </Dialog>
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={patients.patients}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
+                        </Dialog>
+                        <Dialog open={open} onClose={handleClose} fullWidth>
+                            {
+                                update ?
+                                    <DialogTitle>Update Patient Details</DialogTitle>
+                                    :
+                                    <DialogTitle>patient Details</DialogTitle>
+                            }
+                            <Formik values={formikObj}>
+                                <Form onSubmit={handleSubmit}>
+                                    <DialogContent>
+                                        <TextField
+                                            value={values.name}
+                                            margin="dense"
+                                            name="name"
+                                            label="patient name"
+                                            type="text"
+                                            fullWidth
+                                            variant="standard"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                        {errors.name && touched.name ? <p>{errors.name}</p> : ''}
+                                        <TextField
+                                            value={values.age}
+                                            margin="dense"
+                                            name="age"
+                                            label="patient age"
+                                            type="text"
+                                            fullWidth
+                                            variant="standard"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                        {errors.age && touched.age ? <p>{errors.age}</p> : ''}
+                                        <TextField
+                                            value={values.phone}
+                                            margin="dense"
+                                            name="phone"
+                                            label="Contact Number"
+                                            type="tel"
+                                            fullWidth
+                                            variant="standard"
+                                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                                            maxlength="10"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                        {errors.phone && touched.phone ? <p>{errors.phone}</p> : ''}
+                                        <TextField
+                                            value={values.date}
+                                            margin="dense"
+                                            name="city"
+                                            label="City Name"
+                                            type="text"
+                                            fullWidth
+                                            variant="standard"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                        {errors.city && touched.city ? <p>{errors.city}</p> : ''}
+                                        <DialogActions>
+                                            <Button onClick={handleClose}>Cancel</Button>
+                                            {
+                                                update ?
+                                                    <Button type="submit">Update</Button> :
+                                                    <Button type="submit">Add</Button>
+                                            }
+                                        </DialogActions>
+                                    </DialogContent>
+                                </Form>
+                            </Formik>
+                        </Dialog>
+                        <div style={{ height: 400, width: '100%' }}>
+                            <DataGrid
+                                rows={patients.patients}
+                                columns={columns}
+                                pageSize={5}
+                                rowsPerPageOptions={[5]}
+                                checkboxSelection
+                            />
+                        </div>
+                    </div>
+            }
+
         </div>
     );
 }

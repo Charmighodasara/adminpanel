@@ -16,6 +16,19 @@ export const DoctoresReducer = (state = initval, action) => {
                 doctors: action.payload,
                 error: ''
             }
+        case ActionTypes.ERROR_DOCTORS:
+            return {
+                ...state,
+                isLoading: false,
+                doctors:[],
+                error:  action.payload
+            }
+        case ActionTypes.LOADING_DOCTORS:
+            return {
+                ...state,
+                isLoading: true,
+                error: ''
+            }
 
         default:
            return state;
