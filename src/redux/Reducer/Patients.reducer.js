@@ -9,6 +9,7 @@ const initVal = {
 }
 
 export const patientsReducer = (state = initVal, action) => {
+    console.log(action.type , action.payload);
     switch (action.type) {
         case Actiontypes.PATIENTS_GETDATA:
             return {
@@ -23,14 +24,20 @@ export const patientsReducer = (state = initVal, action) => {
                 isLoading: true,
                 error: ''
             }
-        case Actiontypes.ERROR_PATIENTS:
-            return {
-                ...state,
-                isLoading: false,
-                patients: [],
-                error: action.payload
-            }
-
+            case Actiontypes.ERROR_PATIENTS:
+                return {
+                    ...state,
+                    isLoading: false,
+                    patients: [],
+                    error: action.payload
+                }
+            case Actiontypes.PATIENTS_ADDDATA:
+                return {
+                    ...state,
+                    isLoading: false,
+                    patients: state.patients.concat(action.patients),
+                    error: ''
+                }
         default:
             return state;
     }

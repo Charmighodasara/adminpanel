@@ -28,7 +28,41 @@ export const getPatients = () => (dispatch) => {
         }, 2000);
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorPatients(error.message))
+    }
+}
+
+export const addPatients = (data) => (dispatch) => {
+    try {
+        fetch(BASE_URL + 'Patients', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch({ type: Actiontypes.PATIENTS_ADDDATA, payload: data });
+            })
+            .catch((error) => {
+                dispatch(errorPatients(error.message));
+            });
+    } catch (error) {
+        dispatch(errorPatients(error.message))
     }
 }
 
@@ -36,6 +70,6 @@ export const loadingPatients = () => (dispatch) => {
     dispatch({ type: Actiontypes.LOADING_PATIENTS })
 }
 
-export const errorPatients = (error)=> (dispatch)=> {
-    dispatch({type : Actiontypes.ERROR_PATIENTS , payload : error})
+export const errorPatients = (error) => (dispatch) => {
+    dispatch({ type: Actiontypes.ERROR_PATIENTS, payload: error })
 }

@@ -8,7 +8,7 @@ export const getDoctors = () => (dispatch) => {
 
         setTimeout(function () {
 
-            fetch(BASE_URL + 'Doctore')
+            fetch(BASE_URL + 'Doctor')
                 .then(response => {
                     if (response.ok) {
                         return response;
@@ -28,7 +28,42 @@ export const getDoctors = () => (dispatch) => {
         }, 2000)
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorDoctors(error.message))
+    }
+
+}
+
+export const addDoctors = (data) => (dispatch) => {
+    try {
+        fetch(BASE_URL + 'Doctor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch({ type: ActionTypes.DOCTORS_ADDDATA, payload: data });
+            })
+            .catch((error) => {
+                dispatch(errorDoctors(error.message));
+            });
+    } catch (error) {
+        dispatch(errorDoctors(error.message))
     }
 
 }

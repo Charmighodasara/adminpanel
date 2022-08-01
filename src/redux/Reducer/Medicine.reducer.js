@@ -29,6 +29,13 @@ export const MedicineReducer = (state = initval, action) => {
                 medicine: [],
                 error: action.payload
             }
+        case Actiontypes.MEDICINE_ADDDATA:
+            return {
+                ...state,
+                isLoading: false,
+                medicine: state.medicine.concat(action.payload),
+                error:''
+            }
 
         default:
             return state;

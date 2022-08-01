@@ -20,8 +20,15 @@ export const DoctoresReducer = (state = initval, action) => {
             return {
                 ...state,
                 isLoading: false,
-                doctors:[],
-                error:  action.payload
+                doctors: [],
+                error: action.payload
+            }
+        case ActionTypes.DOCTORS_ADDDATA:
+            return {
+                ...state,
+                isLoading: false,
+                doctors: state.doctors.concat(action.doctors),
+                error:''
             }
         case ActionTypes.LOADING_DOCTORS:
             return {
@@ -31,7 +38,7 @@ export const DoctoresReducer = (state = initval, action) => {
             }
 
         default:
-           return state;
+            return state;
     }
 
 }

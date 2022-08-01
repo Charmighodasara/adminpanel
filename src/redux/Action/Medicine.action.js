@@ -26,14 +26,49 @@ export const getMedicines = () => (dispatch) => {
         }, 2000)
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorMedicines(error.message))
     }
+}
+
+export const addMedicines = (data) => (dispatch) => {
+    try {
+        fetch(BASE_URL + 'medicines', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch({ type: Actiontypes.MEDICINE_ADDDATA, payload: data });
+            })
+            .catch((error) => {
+                dispatch(errorMedicines(error.message));
+            });
+    } catch (error) {
+        dispatch(errorMedicines(error.message))
+    }
+
 }
 
 export const loadingMedicines = () => (dispatch) => {
     dispatch({ type: Actiontypes.LOADING_MEDICINES })
 }
 
-export const errorMedicines = (error)=> (dispatch)=> {
-    dispatch({type: Actiontypes.ERROR_MEDICINES , payload:error})
+export const errorMedicines = (error) => (dispatch) => {
+    dispatch({ type: Actiontypes.ERROR_MEDICINES, payload: error })
 }

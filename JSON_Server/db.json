@@ -41,6 +41,34 @@
       "price": 225,
       "quantity": 16,
       "expiry": 2022
+    },
+    {
+      "id": 813,
+      "name": "a",
+      "price": "2",
+      "quantity": "5",
+      "expiry": "5"
+    },
+    {
+      "id": 143,
+      "name": "a",
+      "price": "2",
+      "quantity": "5",
+      "expiry": "5"
+    },
+    {
+      "id": 214,
+      "name": "dfs",
+      "price": "8",
+      "quantity": "9",
+      "expiry": "4"
+    },
+    {
+      "id": 551,
+      "name": "esg",
+      "price": "87",
+      "quantity": "987",
+      "expiry": "78/7865"
     }
   ],
   "Patients": [
@@ -78,39 +106,65 @@
       "age": 22,
       "phone": "1533131316",
       "city": "vadodra"
+    },
+    {
+      "id": 723,
+      "name": "ass",
+      "age": "41",
+      "phone": "1234567890",
+      "city": "sdgvd"
+    },
+    {
+      "id": 881,
+      "name": "wsdadw",
+      "age": "2",
+      "phone": "54545654654",
+      "city": "bnjhhb"
+    },
+    {
+      "id": 417,
+      "name": "dsaad",
+      "age": "5",
+      "phone": "5625215252",
+      "city": "gb gbgbg"
     }
   ],
-
-  "Doctore": [
-  {
-    "id": 166,
-    "fname": "PQR",
-    "lname": "A",
-    "specialty": "Orthopedics"
-  },
-  {
-    "id": 212,
-    "fname": "ABC",
-    "lname": "D",
-    "specialty": "General Surgery"
-  },
-  {
-    "id": 304,
-    "fname": "Xyz",
-    "lname": "G",
-    "specialty": "Dentist."
-  },
-  {
-    "id": 256,
-    "fname": "Mno",
-    "lname": "E",
-    "specialty": "Gynecologist"
-  },
-  {
-    "id": 785,
-    "fname": "Bcd",
-    "lname": "H",
-    "specialty": "Cardiologist"
-  }
-]
+  "Doctor": [
+    {
+      "id": 166,
+      "fname": "PQR",
+      "lname": "A",
+      "specialty": "Orthopedics"
+    },
+    {
+      "id": 212,
+      "fname": "ABC",
+      "lname": "D",
+      "specialty": "General Surgery"
+    },
+    {
+      "id": 304,
+      "fname": "Xyz",
+      "lname": "G",
+      "specialty": "Dentist."
+    },
+    {
+      "id": 256,
+      "fname": "Mno",
+      "lname": "E",
+      "specialty": "Gynecologist"
+    },
+    {
+      "id": 785,
+      "fname": "Bcd",
+      "lname": "H",
+      "specialty": "Cardiologist"
+    },
+    {
+      "id": 102,
+      "fname": "fvgsdgfg",
+      "lname": "dsfsf",
+      "specialty": "fdsaf"
+    }
+  ]
 }
