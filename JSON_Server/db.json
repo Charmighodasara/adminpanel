@@ -55,6 +55,13 @@
       "price": "2",
       "quantity": "3",
       "expiry": "4"
+    },
+    {
+      "id": 321,
+      "name": "aa",
+      "price": "22",
+      "quantity": "85",
+      "expiry": "2023"
     }
   ],
   "Patients": [
