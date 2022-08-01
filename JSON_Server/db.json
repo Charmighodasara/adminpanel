@@ -36,27 +36,6 @@
       "expiry": 2022
     },
     {
-      "id": 5,
-      "name": "STU",
-      "price": 225,
-      "quantity": 16,
-      "expiry": 2022
-    },
-    {
-      "id": 745,
-      "name": "add",
-      "price": "2",
-      "quantity": "43",
-      "expiry": "2022"
-    },
-    {
-      "id": 575,
-      "name": "add",
-      "price": "2",
-      "quantity": "43",
-      "expiry": "2022"
-    },
-    {
       "id": 634,
       "name": "add",
       "price": "2",
@@ -69,6 +48,13 @@
       "price": "5",
       "quantity": "6",
       "expiry": "5"
+    },
+    {
+      "id": 492,
+      "name": "a",
+      "price": "2",
+      "quantity": "3",
+      "expiry": "4"
     }
   ],
   "Patients": [

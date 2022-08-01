@@ -40,15 +40,28 @@ export const addMedicines = (data) => (dispatch) => {
             },
             body: JSON.stringify(data),
         })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
             .then((response) => response.json())
             .then((data) => {
-                dispatch({type : Actiontypes.MEDICINE_ADDDATA , payload : data});
+                dispatch({ type: Actiontypes.MEDICINE_ADDDATA, payload: data });
             })
             .catch((error) => {
-                console.error('Error:', error);
+                dispatch(errorMedicines(error.message));
             });
     } catch (error) {
-
+        dispatch(errorMedicines(error.message))
     }
 }
 
