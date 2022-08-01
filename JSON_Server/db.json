@@ -41,6 +41,34 @@
       "price": 225,
       "quantity": 16,
       "expiry": 2022
+    },
+    {
+      "id": 745,
+      "name": "add",
+      "price": "2",
+      "quantity": "43",
+      "expiry": "2022"
+    },
+    {
+      "id": 575,
+      "name": "add",
+      "price": "2",
+      "quantity": "43",
+      "expiry": "2022"
+    },
+    {
+      "id": 634,
+      "name": "add",
+      "price": "2",
+      "quantity": "43",
+      "expiry": "2022"
+    },
+    {
+      "id": 724,
+      "name": "sd",
+      "price": "5",
+      "quantity": "6",
+      "expiry": "5"
     }
   ],
   "Patients": [
@@ -80,37 +108,36 @@
       "city": "vadodra"
     }
   ],
-
   "Doctore": [
-  {
-    "id": 166,
-    "fname": "PQR",
-    "lname": "A",
-    "specialty": "Orthopedics"
-  },
-  {
-    "id": 212,
-    "fname": "ABC",
-    "lname": "D",
-    "specialty": "General Surgery"
-  },
-  {
-    "id": 304,
-    "fname": "Xyz",
-    "lname": "G",
-    "specialty": "Dentist."
-  },
-  {
-    "id": 256,
-    "fname": "Mno",
-    "lname": "E",
-    "specialty": "Gynecologist"
-  },
-  {
-    "id": 785,
-    "fname": "Bcd",
-    "lname": "H",
-    "specialty": "Cardiologist"
-  }
-]
+    {
+      "id": 166,
+      "fname": "PQR",
+      "lname": "A",
+      "specialty": "Orthopedics"
+    },
+    {
+      "id": 212,
+      "fname": "ABC",
+      "lname": "D",
+      "specialty": "General Surgery"
+    },
+    {
+      "id": 304,
+      "fname": "Xyz",
+      "lname": "G",
+      "specialty": "Dentist."
+    },
+    {
+      "id": 256,
+      "fname": "Mno",
+      "lname": "E",
+      "specialty": "Gynecologist"
+    },
+    {
+      "id": 785,
+      "fname": "Bcd",
+      "lname": "H",
+      "specialty": "Cardiologist"
+    }
+  ]
 }

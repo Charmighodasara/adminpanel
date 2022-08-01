@@ -13,7 +13,7 @@ import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMedicines } from '../../redux/Action/Medicine.action';
+import { addMedicines, getMedicines } from '../../redux/Action/Medicine.action';
 
 function Medicines(props) {
     const [open, setOpen] = useState(false);            // dialog open and close 
@@ -49,14 +49,15 @@ function Medicines(props) {
             id: id,
             ...values
         }
-        if (localData === null) {
-            localStorage.setItem("medicine", JSON.stringify([data]))
-        } else {
-            localData.push(data)
-            localStorage.setItem("medicine", JSON.stringify(localData))
-        }
-        handleClose()
-        loadData()
+        dispatch(addMedicines(data))
+        // if (localData === null) {
+        //     localStorage.setItem("medicine", JSON.stringify([data]))
+        // } else {
+        //     localData.push(data)
+        //     localStorage.setItem("medicine", JSON.stringify(localData))
+        // }
+        // handleClose()
+        // loadData()
     }
 
     // handleUpdatedata for data update in localstorage

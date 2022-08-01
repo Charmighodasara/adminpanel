@@ -26,7 +26,29 @@ export const getMedicines = () => (dispatch) => {
         }, 2000)
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorMedicines(error.message))
+
+    }
+}
+
+export const addMedicines = (data) => (dispatch) => {
+    try {
+        fetch(BASE_URL + 'medicines', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch({type : Actiontypes.MEDICINE_ADDDATA , payload : data});
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    } catch (error) {
+
     }
 }
 
@@ -34,6 +56,6 @@ export const loadingMedicines = () => (dispatch) => {
     dispatch({ type: Actiontypes.LOADING_MEDICINES })
 }
 
-export const errorMedicines = (error)=> (dispatch)=> {
-    dispatch({type: Actiontypes.ERROR_MEDICINES , payload:error})
+export const errorMedicines = (error) => (dispatch) => {
+    dispatch({ type: Actiontypes.ERROR_MEDICINES, payload: error })
 }
