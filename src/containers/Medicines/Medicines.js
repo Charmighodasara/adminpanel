@@ -42,7 +42,7 @@ function Medicines(props) {
     // handleinsert  for data insert 
     const handleInsert = (values) => {
         console.log(values);
-        let localData = JSON.parse(localStorage.getItem("medicine"))
+        // let localData = JSON.parse(localStorage.getItem("medicine"))
         let id = Math.floor(Math.random() * 1000);
         console.log(id);
         let data = {
