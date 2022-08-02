@@ -13,6 +13,13 @@
       "price": 225,
       "quantity": 16,
       "expiry": 2022
+    },
+    {
+      "id": 42,
+      "name": "ABCD",
+      "price": "52",
+      "quantity": "28",
+      "expiry": "2025"
     }
   ],
   "Patients": [

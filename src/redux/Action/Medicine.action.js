@@ -95,6 +95,36 @@ export const deleteMedicines = (id) => (dispatch) => {
 
 }
 
+export const updateMedicines = (data) => (dispatch) => {
+    console.log(data);
+    try {
+        fetch(BASE_URL + 'medicines/' + data, {
+            method: 'PUT',
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
+            .then((response) => response.json())
+            .then(
+                dispatch({ type: Actiontypes.MEDICINE_UPDATE, payload: data }))
+            .catch((error) => {
+                dispatch(errorMedicines(error.message));
+            });
+    } catch (error) {
+        dispatch(errorMedicines(error.message));
+    }
+}
+
 export const loadingMedicines = () => (dispatch) => {
     dispatch({ type: Actiontypes.LOADING_MEDICINES })
 }
