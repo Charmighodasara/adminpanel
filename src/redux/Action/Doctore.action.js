@@ -8,7 +8,7 @@ export const getDoctors = () => (dispatch) => {
 
         setTimeout(function () {
 
-            fetch(BASE_URL + 'Doctor')
+            fetch(BASE_URL + 'Doctors')
                 .then(response => {
                     if (response.ok) {
                         return response;
@@ -35,7 +35,7 @@ export const getDoctors = () => (dispatch) => {
 
 export const addDoctors = (data) => (dispatch) => {
     try {
-        fetch(BASE_URL + 'Doctor', {
+        fetch(BASE_URL + 'Doctors', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -56,8 +56,8 @@ function Patients(props) {
         //     localData.push(data)
         //     localStorage.setItem("Patients", JSON.stringify(localData))
         // }
-        // handleClose()
-        // loadData()
+        handleClose()
+        loadData()
     }
 
     const handleUpdatedata = (values) => {

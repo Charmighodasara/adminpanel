@@ -52,8 +52,8 @@ function Doctors(props) {
         //     localData.push(data)
         //     localStorage.setItem("doctors", JSON.stringify(localData))
         // }
-        // handleClose()
-        // loadData()
+        handleClose()
+        loadData()
     }
     const handleUpdateData = (values) => {
         let localData = JSON.parse(localStorage.getItem("doctors"))

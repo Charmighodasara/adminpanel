@@ -35,7 +35,7 @@ export const patientsReducer = (state = initVal, action) => {
                 return {
                     ...state,
                     isLoading: false,
-                    patients: state.patients.concat(action.patients),
+                    patients: state.patients.concat(action.payload),
                     error: ''
                 }
         default:

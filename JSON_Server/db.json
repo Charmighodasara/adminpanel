@@ -69,6 +69,13 @@
       "price": "87",
       "quantity": "987",
       "expiry": "78/7865"
+    },
+    {
+      "id": 815,
+      "name": "bc",
+      "price": "2",
+      "quantity": "8",
+      "expiry": "2025"
     }
   ],
   "Patients": [
@@ -127,9 +134,30 @@
       "age": "5",
       "phone": "5625215252",
       "city": "gb gbgbg"
+    },
+    {
+      "id": 582,
+      "name": "dfsaf",
+      "age": "25",
+      "phone": "64595986598",
+      "city": "surat"
+    },
+    {
+      "id": 675,
+      "name": "bcskjhd",
+      "age": "12",
+      "phone": "687856398",
+      "city": "khfgg"
+    },
+    {
+      "id": 847,
+      "name": "fgdg",
+      "age": "25",
+      "phone": "552",
+      "city": "58"
     }
   ],
-  "Doctor": [
+  "Doctors": [
     {
       "id": 166,
       "fname": "PQR",
@@ -165,6 +193,24 @@
       "fname": "fvgsdgfg",
       "lname": "dsfsf",
       "specialty": "fdsaf"
+    },
+    {
+      "id": 202,
+      "fname": "nbfsxg",
+      "lname": "jbgfdkjb",
+      "specialty": "fbxcbfdg"
+    },
+    {
+      "id": 206,
+      "fname": "xfgdsg",
+      "lname": "bfxb",
+      "specialty": "bvxfgv"
+    },
+    {
+      "id": 208,
+      "fname": "fdgd",
+      "lname": "vfbd",
+      "specialty": "xfgsd"
     }
   ]
 }
