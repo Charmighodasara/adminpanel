@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPatients, getPatients } from '../../redux/Action/Patients.action';
+import { addPatients, deletePatients, getPatients } from '../../redux/Action/Patients.action';
 
 
 
@@ -101,9 +101,12 @@ function Patients(props) {
 
     const handleDelete = () => {
         // console.log(params.id);
-        let localData = JSON.parse(localStorage.getItem("Patients"))
-        let fData = localData.filter((l) => l.id !== did)
-        localStorage.setItem("Patients", JSON.stringify(fData))
+        // let localData = JSON.parse(localStorage.getItem("Patients"))
+        // let fData = localData.filter((l) => l.id !== did)
+        // localStorage.setItem("Patients", JSON.stringify(fData))
+        
+        dispatch(deletePatients(did))
+
         loadData()
         handleClose()
     }

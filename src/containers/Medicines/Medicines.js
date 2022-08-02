@@ -13,7 +13,7 @@ import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMedicines, getMedicines } from '../../redux/Action/Medicine.action';
+import { addMedicines, deleteMedicines, getMedicines } from '../../redux/Action/Medicine.action';
 
 function Medicines(props) {
     const [open, setOpen] = useState(false);            // dialog open and close 
@@ -109,9 +109,11 @@ function Medicines(props) {
     // handleDelete for delete data record     
     const handleDelete = () => {
         // console.log(params.id);
-        let localData = JSON.parse(localStorage.getItem("medicine"));
-        let fData = localData.filter((l) => l.id !== did)
-        localStorage.setItem("medicine", JSON.stringify(fData))
+        // let localData = JSON.parse(localStorage.getItem("medicine"));
+        // let fData = localData.filter((l) => l.id !== did)
+        // localStorage.setItem("medicine", JSON.stringify(fData))
+        dispatch(deleteMedicines(did))
+
         loadData()
         handleClose()
     }

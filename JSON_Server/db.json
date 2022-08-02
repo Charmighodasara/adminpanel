@@ -1,27 +1,6 @@
 {
   "medicines": [
     {
-      "id": 1,
-      "name": "ABC",
-      "price": 500,
-      "quantity": 10,
-      "expiry": 2024
-    },
-    {
-      "id": 2,
-      "name": "XYZ",
-      "price": 350,
-      "quantity": 15,
-      "expiry": 2025
-    },
-    {
-      "id": 3,
-      "name": "MNO",
-      "price": 200,
-      "quantity": 30,
-      "expiry": 2025
-    },
-    {
       "id": 4,
       "name": "PQR",
       "price": 110,
@@ -34,65 +13,9 @@
       "price": 225,
       "quantity": 16,
       "expiry": 2022
-    },
-    {
-      "id": 5,
-      "name": "STU",
-      "price": 225,
-      "quantity": 16,
-      "expiry": 2022
-    },
-    {
-      "id": 813,
-      "name": "a",
-      "price": "2",
-      "quantity": "5",
-      "expiry": "5"
-    },
-    {
-      "id": 143,
-      "name": "a",
-      "price": "2",
-      "quantity": "5",
-      "expiry": "5"
-    },
-    {
-      "id": 214,
-      "name": "dfs",
-      "price": "8",
-      "quantity": "9",
-      "expiry": "4"
-    },
-    {
-      "id": 551,
-      "name": "esg",
-      "price": "87",
-      "quantity": "987",
-      "expiry": "78/7865"
-    },
-    {
-      "id": 815,
-      "name": "bc",
-      "price": "2",
-      "quantity": "8",
-      "expiry": "2025"
     }
   ],
   "Patients": [
-    {
-      "id": 1,
-      "name": "abcd",
-      "age": 20,
-      "phone": 1234567890,
-      "city": "surat"
-    },
-    {
-      "id": 2,
-      "name": "XYZ",
-      "age": 30,
-      "phone": 1234567890,
-      "city": "rajkot"
-    },
     {
       "id": 3,
       "name": "STUV",
@@ -120,68 +43,9 @@
       "age": "41",
       "phone": "1234567890",
       "city": "sdgvd"
-    },
-    {
-      "id": 881,
-      "name": "wsdadw",
-      "age": "2",
-      "phone": "54545654654",
-      "city": "bnjhhb"
-    },
-    {
-      "id": 417,
-      "name": "dsaad",
-      "age": "5",
-      "phone": "5625215252",
-      "city": "gb gbgbg"
-    },
-    {
-      "id": 582,
-      "name": "dfsaf",
-      "age": "25",
-      "phone": "64595986598",
-      "city": "surat"
-    },
-    {
-      "id": 675,
-      "name": "bcskjhd",
-      "age": "12",
-      "phone": "687856398",
-      "city": "khfgg"
-    },
-    {
-      "id": 847,
-      "name": "fgdg",
-      "age": "25",
-      "phone": "552",
-      "city": "58"
     }
   ],
   "Doctors": [
-    {
-      "id": 166,
-      "fname": "PQR",
-      "lname": "A",
-      "specialty": "Orthopedics"
-    },
-    {
-      "id": 212,
-      "fname": "ABC",
-      "lname": "D",
-      "specialty": "General Surgery"
-    },
-    {
-      "id": 304,
-      "fname": "Xyz",
-      "lname": "G",
-      "specialty": "Dentist."
-    },
-    {
-      "id": 256,
-      "fname": "Mno",
-      "lname": "E",
-      "specialty": "Gynecologist"
-    },
     {
       "id": 785,
       "fname": "Bcd",
@@ -199,18 +63,6 @@
       "fname": "nbfsxg",
       "lname": "jbgfdkjb",
       "specialty": "fbxcbfdg"
-    },
-    {
-      "id": 206,
-      "fname": "xfgdsg",
-      "lname": "bfxb",
-      "specialty": "bvxfgv"
-    },
-    {
-      "id": 208,
-      "fname": "fdgd",
-      "lname": "vfbd",
-      "specialty": "xfgsd"
     }
   ]
 }

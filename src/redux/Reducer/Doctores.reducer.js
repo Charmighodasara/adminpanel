@@ -28,7 +28,14 @@ export const DoctoresReducer = (state = initval, action) => {
                 ...state,
                 isLoading: false,
                 doctors: state.doctors.concat(action.payload),
-                error:''
+                error: ''
+            }
+        case ActionTypes.DOCTORS_DELETE:
+            return {
+                ...state,
+                isLoading: false,
+                doctors: state.doctors.filter((d)=> d.id !== action.payload),
+                error: ''
             }
         case ActionTypes.LOADING_DOCTORS:
             return {

@@ -38,6 +38,13 @@ export const patientsReducer = (state = initVal, action) => {
                     patients: state.patients.concat(action.payload),
                     error: ''
                 }
+            case Actiontypes.PATIENTS_DELETE:
+                return {
+                    ...state,
+                    isLoading: false,
+                    patients: state.patients.filter((p) => p.id !== action.payload),
+                    error: ''
+                }
         default:
             return state;
     }

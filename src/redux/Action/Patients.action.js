@@ -66,6 +66,36 @@ export const addPatients = (data) => (dispatch) => {
     }
 }
 
+export const deletePatients = (id) => (dispatch) => {
+    console.log(id);
+    try {
+        fetch(BASE_URL +  'Patients/' + id , {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then((response) => response.json())
+        .then(dispatch({ type: Actiontypes.PATIENTS_DELETE, payload: id }))
+        .catch((error) => {
+            dispatch(errorPatients(error.message));
+        });
+
+    } catch (error) {
+        dispatch(errorPatients(error.message));
+    }
+}
+
 export const loadingPatients = () => (dispatch) => {
     dispatch({ type: Actiontypes.LOADING_PATIENTS })
 }
