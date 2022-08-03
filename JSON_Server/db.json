@@ -1,31 +1,31 @@
 {
   "medicines": [
     {
-      "id": 4,
-      "name": "PQR",
-      "price": 110,
-      "quantity": 25,
-      "expiry": 2023
-    },
-    {
-      "id": 5,
-      "name": "STU",
-      "price": 225,
-      "quantity": 16,
-      "expiry": 2022
-    },
-    {
       "id": 42,
       "name": "ABCD",
       "price": "52",
       "quantity": "28",
       "expiry": "2025"
+    },
+    {
+      "id": 557,
+      "name": "XYZ",
+      "price": "50",
+      "quantity": "5",
+      "expiry": "2023"
+    },
+    {
+      "id": 587,
+      "name": "XYZABC",
+      "price": "5",
+      "quantity": "2",
+      "expiry": "2023"
     }
   ],
   "Patients": [
     {
       "id": 3,
-      "name": "STUV",
+      "name": "STU",
       "age": 25,
       "phone": 1234567890,
       "city": "gandhinagar"
@@ -33,7 +33,7 @@
     {
       "id": 4,
       "name": "MNO",
-      "age": 55,
+      "age": "50",
       "phone": 1234567890,
       "city": "ahemdabad"
     },
@@ -56,7 +56,7 @@
     {
       "id": 785,
       "fname": "Bcd",
-      "lname": "H",
+      "lname": "Hzfde",
       "specialty": "Cardiologist"
     },
     {
@@ -67,9 +67,9 @@
     },
     {
       "id": 202,
-      "fname": "nbfsxg",
-      "lname": "jbgfdkjb",
-      "specialty": "fbxcbfdg"
+      "fname": "Bcdfgd",
+      "lname": "Hdf",
+      "specialty": "Cardiologist"
     }
   ]
 }

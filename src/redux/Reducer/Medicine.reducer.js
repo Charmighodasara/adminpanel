@@ -7,7 +7,7 @@ const initval = {
 }
 
 export const MedicineReducer = (state = initval, action) => {
-    console.log(action.type,action.payload);
+    console.log(action.type, action.payload);
     switch (action.type) {
         case Actiontypes.MEDICINE_GETDATA:
             return {
@@ -48,7 +48,7 @@ export const MedicineReducer = (state = initval, action) => {
                 ...state,
                 isLoading: false,
                 medicine: state.medicine.map((m) => {
-                    if (m.id === action.payload) {
+                    if (m.id === action.payload.id) {
                         return action.payload
                     } else {
                         return m
