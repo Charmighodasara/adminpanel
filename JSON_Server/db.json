@@ -2,7 +2,7 @@
   "medicines": [
     {
       "id": 42,
-      "name": "abcdef",
+      "name": "ABCDEFG",
       "price": "52",
       "quantity": "28",
       "expiry": "2025"
