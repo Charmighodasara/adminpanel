@@ -1,5 +1,6 @@
 
 import { BASE_URL } from '../../Base_url/Base_url'
+import { getDoctorsData } from '../../Commen/apis/Doctors.apis'
 import * as ActionTypes from '../ActionType'
 
 export const getDoctors = () => (dispatch) => {
@@ -7,24 +8,26 @@ export const getDoctors = () => (dispatch) => {
         dispatch(loadingDoctors())
 
         setTimeout(function () {
-
-            fetch(BASE_URL + 'Doctors')
-                .then(response => {
-                    if (response.ok) {
-                        return response;
-                    } else {
-                        var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                        error.response = response;
-                        throw error;
-                    }
-                },
-                    error => {
-                        var errmess = new Error(error.message);
-                        throw errmess;
-                    })
-                .then((response) => response.json())
-                .then((data) => dispatch({ type: ActionTypes.DOCTORS_GETDATA, payload: data }))
+            getDoctorsData()
+                .then((data) => dispatch({ type: ActionTypes.DOCTORS_GETDATA, payload: data.data }))
                 .catch((error) => dispatch(errorDoctors(error.message)))
+            // fetch(BASE_URL + 'Doctors')
+            //     .then(response => {
+            //         if (response.ok) {
+            //             return response;
+            //         } else {
+            //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            //             error.response = response;
+            //             throw error;
+            //         }
+            //     },
+            //         error => {
+            //             var errmess = new Error(error.message);
+            //             throw errmess;
+            //         })
+            //     .then((response) => response.json())
+            //     .then((data) => dispatch({ type: ActionTypes.DOCTORS_GETDATA, payload: data }))
+            //     .catch((error) => dispatch(errorDoctors(error.message)))
         }, 2000)
 
     } catch (error) {
