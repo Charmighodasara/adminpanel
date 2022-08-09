@@ -20,6 +20,20 @@
       "price": "5",
       "quantity": "2",
       "expiry": "2023"
+    },
+    {
+      "id": 34,
+      "name": "ABC",
+      "price": "25",
+      "quantity": "52",
+      "expiry": "2025"
+    },
+    {
+      "id": 703,
+      "name": "DGDG",
+      "price": "20",
+      "quantity": "58",
+      "expiry": "2023"
     }
   ],
   "Patients": [

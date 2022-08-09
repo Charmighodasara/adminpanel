@@ -4,6 +4,6 @@ export const getMedicinesData = () => {
     return getRequest('medicines')
 }
 
-export const postMedicinesData = () => {
-    return postRequest('medicines')
+export const postMedicinesData = (data) => {
+    return postRequest('medicines', data)
 }
