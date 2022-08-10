@@ -20,6 +20,9 @@
       "price": "5",
       "quantity": "2",
       "expiry": "2023"
+    },
+    {
+      "id": 588
     }
   ],
   "Patients": [
