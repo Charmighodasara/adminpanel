@@ -2,7 +2,7 @@
   "medicines": [
     {
       "id": 42,
-      "name": "abcdef",
+      "name": "ABCDEFG",
       "price": "52",
       "quantity": "28",
       "expiry": "2025"
@@ -22,7 +22,11 @@
       "expiry": "2023"
     },
     {
-      "id": 588
+      "id": 121,
+      "name": "abc",
+      "price": "500",
+      "quantity": "500",
+      "expiry": "2023"
     }
   ],
   "Patients": [
