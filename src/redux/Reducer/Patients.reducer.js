@@ -9,7 +9,7 @@ const initVal = {
 }
 
 export const patientsReducer = (state = initVal, action) => {
-    console.log(action.type, action.payload);
+    // console.log(action.type, action.payload);
     switch (action.type) {
         case Actiontypes.PATIENTS_GETDATA:
             return {

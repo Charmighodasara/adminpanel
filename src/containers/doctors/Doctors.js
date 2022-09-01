@@ -38,20 +38,20 @@ function Doctors(props) {
 
     const handleInsert = (values) => {
         console.log(values);
-        let localData = JSON.parse(localStorage.getItem("doctors"))
-        let id = Math.floor(Math.random() * 10000);
-        console.log(id);
-        let data = {
-            id: id,
-            ...values
-        }
-        dispatch(addDoctors(data))
+        // let localData = JSON.parse(localStorage.getItem("doctors"))
+        // let id = Math.floor(Math.random() * 10000);
+        // console.log(id);
+        // let data = {
+        //     id: id,
+        //     ...values
+        // }
         // if (localData === null) {
         //     localStorage.setItem("doctors", JSON.stringify([data]))
         // } else {
         //     localData.push(data)
         //     localStorage.setItem("doctors", JSON.stringify(localData))
         // }
+        dispatch(addDoctors(values))
         handleClose()
         loadData()
     }
@@ -96,6 +96,7 @@ function Doctors(props) {
         },
     });
     const { handleBlur, handleSubmit, handleChange, values, errors, touched } = formik
+    console.log(errors);
 
     const handleDelete = () => {
         // console.log(params.id);
