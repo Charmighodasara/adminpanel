@@ -9,10 +9,12 @@ export const getDoctors = () => async (dispatch) => {
     try {
         const querySnapshot = await getDocs(collection(db, "Doctor"));
         let data = []
+
         querySnapshot.forEach((doc) => {
             data.push({id:doc.id, ...doc.data()})
             console.log(`${doc.id} => ${doc.data()}`);
         });
+        
         dispatch({type: ActionTypes.DOCTORS_GETDATA , payload: data })
         console.log(data);
 

@@ -42,14 +42,14 @@ function Medicines(props) {
     // handleinsert  for data insert 
     const handleInsert = (values) => {
         console.log(values);
-        let localData = JSON.parse(localStorage.getItem("medicine"))
-        let id = Math.floor(Math.random() * 1000);
-        console.log(id);
-        let data = {
-            id: id,
-            ...values
-        }
-        dispatch(addMedicines(data))
+        // let localData = JSON.parse(localStorage.getItem("medicine"))
+        // let id = Math.floor(Math.random() * 1000);
+        // console.log(id);
+        // let data = {
+        //     id: id,
+        //     ...values
+        // }
+        dispatch(addMedicines(values))
         // if (localData === null) {
         //     localStorage.setItem("medicine", JSON.stringify([data]))
         // } else {
