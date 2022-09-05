@@ -48,18 +48,18 @@ export const deleteDoctors = (id) => async (dispatch) => {
     }
 }
 
-export const updateDoctors = (data) => async (dispatch) => {
-    console.log(data);
+export const updateDoctors = (data) => async(dispatch) => {
+
+    console.log(data.id);
     try {
-        console.log(data);
         const DoctorRef = doc(db, "Doctor", data.id);
-    
-        // Set the "capital" field of the city 'DC'
+
         await updateDoc(DoctorRef, {
             fname: data.fname,
             lname: data.lname,
             specialty: data.specialty
         });
+        dispatch({type : ActionTypes.DOCTORS_UPDATE, payload: data})
     } catch (error) {
         dispatch(errorDoctors(error.message));
     }
