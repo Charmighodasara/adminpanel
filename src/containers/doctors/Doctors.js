@@ -73,7 +73,6 @@ function Doctors(props) {
     }
 
     let schema = yup.object().shape({
-        id: yup.number().required("please enter doctor's code number").positive().integer(),
         fname: yup.string().required("please enter first name"),
         lname: yup.string().required("please enter last name"),
         specialty: yup.string().required("please enter doctor's specialty"),
@@ -81,7 +80,6 @@ function Doctors(props) {
 
     const formik = useFormik({
         initialValues: {
-            id: '',
             fname: '',
             lname: '',
             specialty: '',
@@ -118,7 +116,6 @@ function Doctors(props) {
     }
 
     const columns = [
-        { field: 'id', headerName: 'Code', width: 180 },
         { field: 'fname', headerName: 'First name', width: 180 },
         { field: 'lname', headerName: 'Last name', width: 180 },
         { field: 'specialty', headerName: 'Specialty', width: 180 },
@@ -158,7 +155,6 @@ function Doctors(props) {
     const handleSearch = (val) => {
         let localData = JSON.parse(localStorage.getItem("doctors"));
         let fData = localData.filter((d) => (
-            d.id.toString().includes(val) ||
             d.fname.toLowerCase().includes(val.toLowerCase()) ||
             d.lname.toLowerCase().includes(val.toLowerCase()) ||
             d.specialty.toLowerCase().includes(val.toLowerCase())
@@ -198,7 +194,7 @@ function Doctors(props) {
                                 aria-describedby="alert-dialog-description"
                             >
                                 <DialogTitle id="alert-dialog-title">
-                                    {"Use Google's location service?"}
+                                    {"are you sure to delete this data ?"}
                                 </DialogTitle>
                                 <DialogContent>
                                 </DialogContent>
@@ -217,18 +213,6 @@ function Doctors(props) {
                                 <Formik values={formik}>
                                     <Form onSubmit={handleSubmit}>
                                         <DialogContent>
-                                            <TextField
-                                                value={values.code}
-                                                margin="dense"
-                                                name="id"
-                                                label="Doctor's Code"
-                                                type="number"
-                                                fullWidth
-                                                variant="standard"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                            />
-                                            {errors.code && touched.code ? <p>{errors.code}</p> : ''}
                                             <TextField
                                                 value={values.fname}
                                                 margin="dense"
