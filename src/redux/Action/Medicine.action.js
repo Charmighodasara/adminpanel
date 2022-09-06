@@ -26,9 +26,9 @@ export const getMedicines = () => async (dispatch) => {
 export const addMedicines = (data) => async (dispatch) => {
     console.log(data);
     try {
-        const PatientsRef = ref(storage, 'Medicine/' + data.profile_img.name);
+        const MedicineRef = ref(storage, 'Medicine/' + data.profile_img.name);
 
-        uploadBytes(PatientsRef, data.profile_img)
+        uploadBytes(MedicineRef, data.profile_img)
             .then((snapshot) => {
                 console.log('Uploaded a blob or file!');
                 getDownloadURL(ref(storage, snapshot.ref))
