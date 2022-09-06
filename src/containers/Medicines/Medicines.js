@@ -56,8 +56,8 @@ function Medicines(props) {
         //     localData.push(data)
         //     localStorage.setItem("medicine", JSON.stringify(localData))
         // }
-        // handleClose()
-        // loadData()
+        handleClose()
+        loadData()
     }
 
     // handleUpdatedata for data update in localstorage
@@ -83,6 +83,7 @@ function Medicines(props) {
         price: yup.number().required("please enter Medicine price").positive().integer(),
         quantity: yup.string().required("please enter Medicine quantity"),
         expiry: yup.string().required("please enter Medicine expiry"),
+        profile_img: yup.mixed().required("please select profile image")
     });
 
     // formik 
@@ -91,7 +92,8 @@ function Medicines(props) {
             name: '',
             price: '',
             quantity: '',
-            expiry: ''
+            expiry: '',
+            profile_img:''
         },
         validationSchema: schema,
         onSubmit: values => {
@@ -105,7 +107,7 @@ function Medicines(props) {
         enableReinitialize: true,
     });
     // formik destructring 
-    const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
+    const { handleChange, errors, handleSubmit, handleBlur, touched, values, setFieldValue } = formikObj;
 
     // handleDelete for delete data record     
     const handleDelete = () => {
@@ -275,6 +277,12 @@ function Medicines(props) {
                                                 onBlur={handleBlur}
                                             />
                                             {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
+                                            <input
+                                                type="file"
+                                                name="profile_img"
+                                                onChange={(e)=> setFieldValue('profile_img' , e.target.files[0])}
+                                            />
+                                              {errors.profile_img && touched.profile_img ? <p>{errors.profile_img}</p> : ''}
                                             <DialogActions>
                                                 <Button onClick={handleClose}>Cancel</Button>
                                                 {

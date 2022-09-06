@@ -2,8 +2,9 @@ import { BASE_URL } from '../../Base_url/Base_url';
 import { deleteMedicinesData, getMedicinesData, postMedicinesData, putMedicinesData } from '../../Commen/apis/Medicines.api';
 import * as Actiontypes from '../ActionType'
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import { async } from '@firebase/util';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const getMedicines = () => async (dispatch) => {
     try {
@@ -23,10 +24,33 @@ export const getMedicines = () => async (dispatch) => {
 }
 
 export const addMedicines = (data) => async (dispatch) => {
+    console.log(data);
     try {
-        const docRef = await addDoc(collection(db, "Medicine"), data);
-        console.log("Document written with ID: ", docRef.id);
-        dispatch({ type: Actiontypes.MEDICINE_ADDDATA, payload: { id: docRef.id, ...data } })
+        const PatientsRef = ref(storage, 'Medicine/' + data.profile_img.name);
+
+        uploadBytes(PatientsRef, data.profile_img)
+            .then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+                getDownloadURL(ref(storage, snapshot.ref))
+                    .then(async (url) => {
+                        const docRef = await addDoc(collection(db, "Medicine"), {
+                            ...data,
+                            profile_img: url
+                        });
+                        dispatch({
+                            type: Actiontypes.MEDICINE_ADDDATA, payload:
+                            {
+                                id: docRef.id,
+                                ...data,
+                                profile_img: url
+                            }
+                        })
+
+                    })
+            });
+        // const docRef = await addDoc(collection(db, "Medicine"), data);
+        // console.log("Document written with ID: ", docRef.id);
+        // dispatch({ type: Actiontypes.MEDICINE_ADDDATA, payload: { id: docRef.id, ...data } })
     } catch (error) {
         dispatch(errorMedicines(error.message))
     }
