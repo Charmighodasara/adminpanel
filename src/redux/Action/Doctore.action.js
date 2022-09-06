@@ -1,8 +1,9 @@
 
 import { addDoc, collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { BASE_URL } from '../../Base_url/Base_url'
 import { deleteDoctorsData, getDoctorsData, postDoctorsData, putDoctorsData } from '../../Commen/apis/Doctors.apis'
-import { db } from '../../firebase'
+import { db, storage } from '../../firebase'
 import * as ActionTypes from '../ActionType'
 
 export const getDoctors = () => async (dispatch) => {
@@ -27,9 +28,29 @@ export const getDoctors = () => async (dispatch) => {
 export const addDoctors = (data) => async (dispatch) => {
 
     try {
-        const docRef = await addDoc(collection(db, "Doctor"), data);
-        console.log("Document written with ID: ", docRef.id);
-        dispatch({ type: ActionTypes.DOCTORS_ADDDATA, payload: { id: docRef.id, ...data } })
+        // console.log(data);
+        const DoctorRef = ref(storage, 'Doctor/' + data.profile_img.name);
+
+        uploadBytes(DoctorRef, data.profile_img)
+
+            .then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+
+                getDownloadURL(ref(storage, snapshot.ref))
+                    .then(async(url) => {
+                        const docRef = await addDoc(collection(db, "Doctor"), {
+                            data,
+                            profile_img: url
+                        });
+                        console.log(url);
+                        dispatch({ type: ActionTypes.DOCTORS_ADDDATA, payload: {
+                                id: docRef.id,
+                                ...data,
+                                profile_img: url
+                            }
+                        })
+                    })
+            });
 
     } catch (error) {
         dispatch(errorDoctors(error.message))
@@ -48,7 +69,7 @@ export const deleteDoctors = (id) => async (dispatch) => {
     }
 }
 
-export const updateDoctors = (data) => async(dispatch) => {
+export const updateDoctors = (data) => async (dispatch) => {
 
     console.log(data.id);
     try {
@@ -59,7 +80,7 @@ export const updateDoctors = (data) => async(dispatch) => {
             lname: data.lname,
             specialty: data.specialty
         });
-        dispatch({type : ActionTypes.DOCTORS_UPDATE, payload: data})
+        dispatch({ type: ActionTypes.DOCTORS_UPDATE, payload: data })
     } catch (error) {
         dispatch(errorDoctors(error.message));
     }
