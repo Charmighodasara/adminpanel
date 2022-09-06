@@ -39,7 +39,7 @@ export const addDoctors = (data) => async (dispatch) => {
                 getDownloadURL(ref(storage, snapshot.ref))
                     .then(async(url) => {
                         const docRef = await addDoc(collection(db, "Doctor"), {
-                            data,
+                            ...data,
                             profile_img: url
                         });
                         console.log(url);
