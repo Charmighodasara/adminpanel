@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDoctors, deleteDoctors, getDoctors, updateDoctors } from '../../redux/Action/Doctore.action';
+import ImageIcon from '@mui/icons-material/Image';
 
 function Doctors(props) {
     const [open, setOpen] = useState(false);
@@ -137,6 +138,18 @@ function Doctors(props) {
 
             )
         },
+        {
+            field: 'image',
+            headerName: 'Image',
+            width: 150,
+            renderCell: (params) => (
+                <>
+                    <IconButton aria-label="image" onClick={() => { setDeleteid(params.id) }}>
+                        <ImageIcon />
+                    </IconButton>
+                </>
+            )
+        }
     ];
 
     const loadData = () => {
