@@ -149,7 +149,17 @@ function Medicines(props) {
                     </IconButton>
                 </>
             )
-        }
+        }, 
+        {
+            field: 'profile_img',
+            headerName: 'Profile Image',
+            width: 200,
+            flex:1,
+            renderCell: (params) => (
+                    <img src={params.row.profile_img} height={50}  width={50} />
+                
+            )
+        },
     ];
     // load data 
     const loadData = () => {

@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid } from  '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -143,6 +143,15 @@ function Patients(props) {
                         <DeleteIcon />
                     </IconButton>
                 </>
+            )
+        },
+        {
+            field: 'profile_img',
+            headerName: 'Profile Image',
+            width: 200,
+            flex:1,
+            renderCell: (params) => (
+                    <img src={params.row.profile_img} width={50} height={50} />
             )
         },
     ];

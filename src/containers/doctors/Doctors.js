@@ -137,6 +137,17 @@ function Doctors(props) {
 
             )
         },
+        {
+            field: 'profile_img',
+            headerName: 'Profile Image',
+            width: 200,
+            flex:1,
+            renderCell: (params) => (
+                <>
+                    <img src={params.row.profile_img} width={50} height={50} />
+                </>
+            )
+        },
     ];
 
     const loadData = () => {
