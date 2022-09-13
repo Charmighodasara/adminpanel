@@ -120,23 +120,7 @@ function Doctors(props) {
     const columns = [
         { field: 'fname', headerName: 'First name', width: 180 },
         { field: 'lname', headerName: 'Last name', width: 180 },
-        { field: 'specialty', headerName: 'Specialty', width: 180 },
-        {
-            field: 'action',
-            headerName: 'Action',
-            width: 180,
-            renderCell: (params) => (
-                <>
-                    <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
-                        <EditIcon />
-                    </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDeleteid(params.id) }}>
-                        <DeleteIcon />
-                    </IconButton>
-                </>
-
-            )
-        },
+        { field: 'specialty', headerName: 'Specialty', width: 200 },
         {
             field: 'profile_img',
             headerName: 'Profile Image',
@@ -148,6 +132,22 @@ function Doctors(props) {
                 </>
             )
         },
+        {
+            field: 'action',
+            headerName: 'Action',
+            width: 1000,
+            renderCell: (params) => (
+                <>
+                    <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDeleteid(params) }}>
+                        <DeleteIcon />
+                    </IconButton>
+                </>
+            )
+        },
+       
     ];
 
     const loadData = () => {
