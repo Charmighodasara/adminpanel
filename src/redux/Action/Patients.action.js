@@ -6,7 +6,7 @@ import { patientsReducer } from '../Reducer/Patients.reducer';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from '../../firebase';
 import { async } from '@firebase/util';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const getPatients = () => async (dispatch) => {
     try {
@@ -28,7 +28,10 @@ export const addPatients = (data) => async (dispatch) => {
     console.log(data);
 
     try {
-        const PatientsRef = ref(storage, 'Patients/' + data.profile_img.name);
+        let rendomNumber = Math.floor(Math.random() * 1000000).toString()
+        console.log(rendomNumber);
+
+        const PatientsRef = ref(storage, 'Patients/' + rendomNumber);
 
         uploadBytes(PatientsRef, data.profile_img)
             .then((snapshot) => {
@@ -37,7 +40,8 @@ export const addPatients = (data) => async (dispatch) => {
                     .then(async (url) => {
                         const docRef = await addDoc(collection(db, "Patients"), {
                             ...data,
-                            profile_img: url
+                            profile_img: url,
+                            fileName: rendomNumber
                         });
                         dispatch({
                             type: Actiontypes.PATIENTS_ADDDATA, payload:
@@ -57,11 +61,20 @@ export const addPatients = (data) => async (dispatch) => {
     }
 }
 
-export const deletePatients = (id) => async (dispatch) => {
-    console.log(id);
+export const deletePatients = (data) => async (dispatch) => {
     try {
-        await deleteDoc(doc(db, "Patients", id));
-        dispatch({ type: Actiontypes.PATIENTS_DELETE, payload: id })
+        console.log(data);
+
+        const patientsRef = ref(storage, 'Patients/' + data.row.fileName);
+        deleteObject(patientsRef)
+            .then(async () => {
+                await deleteDoc(doc(db, "Patients", data.id));
+                dispatch({ type: Actiontypes.PATIENTS_DELETE, payload: data.id })
+            }).catch((error) => {
+                dispatch(errorPatients(error.message));
+            });
+        // await deleteDoc(doc(db, "Patients", id));
+        // dispatch({ type: Actiontypes.PATIENTS_DELETE, payload: id })
     } catch (error) {
         dispatch(errorPatients(error.message));
     }

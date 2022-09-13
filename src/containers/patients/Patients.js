@@ -126,10 +126,18 @@ function Patients(props) {
     }
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 200 },
-        { field: 'age', headerName: 'Age', width: 200 },
-        { field: 'phone', headerName: 'Contact Number', width: 200 },
-        { field: 'city', headerName: 'City', width: 200 },
+        { field: 'name', headerName: 'Name', width: 180 },
+        { field: 'age', headerName: 'Age', width: 180 },
+        { field: 'phone', headerName: 'Contact Number', width: 180 },
+        { field: 'city', headerName: 'City', width: 180 },
+        {
+            field: 'profile_img',
+            headerName: 'Profile Image',
+            width: 180,
+            renderCell: (params) => (
+                    <img src={params.row.profile_img} width={50} height={50} />
+            )
+        },
         {
             field: 'action',
             headerName: 'Action',
@@ -139,21 +147,13 @@ function Patients(props) {
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDid(params.id) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDid(params) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>
             )
         },
-        {
-            field: 'profile_img',
-            headerName: 'Profile Image',
-            width: 200,
-            flex:1,
-            renderCell: (params) => (
-                    <img src={params.row.profile_img} width={50} height={50} />
-            )
-        },
+      
     ];
 
     const loadData = () => {

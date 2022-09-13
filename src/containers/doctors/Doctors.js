@@ -118,14 +118,13 @@ function Doctors(props) {
     }
 
     const columns = [
-        { field: 'fname', headerName: 'First name', width: 180 },
-        { field: 'lname', headerName: 'Last name', width: 180 },
-        { field: 'specialty', headerName: 'Specialty', width: 200 },
+        { field: 'fname', headerName: 'First name' , width: 200},
+        { field: 'lname', headerName: 'Last name', width: 200},
+        { field: 'specialty', headerName: 'Specialty' , width: 200},
         {
             field: 'profile_img',
             headerName: 'Profile Image',
             width: 200,
-            flex:1,
             renderCell: (params) => (
                 <>
                     <img src={params.row.profile_img} width={50} height={50} />
@@ -135,7 +134,7 @@ function Doctors(props) {
         {
             field: 'action',
             headerName: 'Action',
-            width: 1000,
+            width: 200,
             renderCell: (params) => (
                 <>
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>

@@ -4,7 +4,7 @@ import * as Actiontypes from '../ActionType'
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from '../../firebase';
 import { async } from '@firebase/util';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const getMedicines = () => async (dispatch) => {
     try {
@@ -26,7 +26,9 @@ export const getMedicines = () => async (dispatch) => {
 export const addMedicines = (data) => async (dispatch) => {
     console.log(data);
     try {
-        const MedicineRef = ref(storage, 'Medicine/' + data.profile_img.name);
+        let rendomNumber = Math.floor(Math.random()* 10000).toString()
+        console.log(rendomNumber);
+        const MedicineRef = ref(storage, 'Medicine/' + rendomNumber);
 
         uploadBytes(MedicineRef, data.profile_img)
             .then((snapshot) => {
@@ -35,7 +37,8 @@ export const addMedicines = (data) => async (dispatch) => {
                     .then(async (url) => {
                         const docRef = await addDoc(collection(db, "Medicine"), {
                             ...data,
-                            profile_img: url
+                            profile_img: url,
+                            fileName: rendomNumber
                         });
                         dispatch({
                             type: Actiontypes.MEDICINE_ADDDATA, payload:
@@ -57,18 +60,26 @@ export const addMedicines = (data) => async (dispatch) => {
 
 }
 
-export const deleteMedicines = (id) => async (dispatch) => {
-    console.log(id);
+export const deleteMedicines = (data) => async (dispatch) => {
+
     try {
-        await deleteDoc(doc(db, "Medicine", id));
-        dispatch({ type: Actiontypes.MEDICINE_DELETE, payload: id })
+        console.log(data);
+
+        const medicineRef = ref(storage, 'Medicine/' + data.row.fileName);
+        deleteObject(medicineRef)
+            .then(async () => {
+                await deleteDoc(doc(db, "Medicine", data.id));
+                dispatch({ type: Actiontypes.MEDICINE_DELETE, payload: data.id })
+            }).catch((error) => {
+                dispatch(errorMedicines(error.message))
+            });
     } catch (error) {
         dispatch(errorMedicines(error.message))
     }
 
 }
 
-export const updateMedicines = (data) => async(dispatch) => {
+export const updateMedicines = (data) => async (dispatch) => {
     console.log(data);
     try {
         const washingtonRef = doc(db, "Medicine", data.id);
@@ -80,7 +91,7 @@ export const updateMedicines = (data) => async(dispatch) => {
             quantity: data.quantity,
             expiry: data.expiry
         });
-        dispatch({type : Actiontypes.MEDICINE_UPDATE , payload: data})
+        dispatch({ type: Actiontypes.MEDICINE_UPDATE, payload: data })
     } catch (error) {
         dispatch(errorMedicines(error.message));
     }

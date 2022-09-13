@@ -93,7 +93,7 @@ function Medicines(props) {
             price: '',
             quantity: '',
             expiry: '',
-            profile_img:''
+            profile_img: ''
         },
         validationSchema: schema,
         onSubmit: values => {
@@ -136,6 +136,14 @@ function Medicines(props) {
         { field: 'quantity', headerName: 'Quantity', width: 130 },
         { field: 'expiry', headerName: 'Expiry', width: 130 },
         {
+            field: 'profile_img',
+            headerName: 'Profile Image',
+            width: 200,
+            renderCell: (params) => (
+                <img src={params.row.profile_img} height={50} width={50} />
+            )
+        },
+        {
             field: 'action',
             headerName: 'Action',
             width: 130,
@@ -144,20 +152,10 @@ function Medicines(props) {
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDid(params.id) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDid(params) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>
-            )
-        }, 
-        {
-            field: 'profile_img',
-            headerName: 'Profile Image',
-            width: 200,
-            flex:1,
-            renderCell: (params) => (
-                    <img src={params.row.profile_img} height={50}  width={50} />
-                
             )
         },
     ];
@@ -290,9 +288,9 @@ function Medicines(props) {
                                             <input
                                                 type="file"
                                                 name="profile_img"
-                                                onChange={(e)=> setFieldValue('profile_img' , e.target.files[0])}
+                                                onChange={(e) => setFieldValue('profile_img', e.target.files[0])}
                                             />
-                                              {errors.profile_img && touched.profile_img ? <p>{errors.profile_img}</p> : ''}
+                                            {errors.profile_img && touched.profile_img ? <p>{errors.profile_img}</p> : ''}
                                             <DialogActions>
                                                 <Button onClick={handleClose}>Cancel</Button>
                                                 {
