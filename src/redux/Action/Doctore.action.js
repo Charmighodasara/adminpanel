@@ -68,7 +68,7 @@ export const deleteDoctors = (data) => async (dispatch) => {
 
         const doctorRef = ref(storage, 'Doctor/' + data.fileName);
         deleteObject(doctorRef)
-            .then(async() => {
+            .then(async () => {
                 await deleteDoc(doc(db, "Doctor", data.id));
                 dispatch({ type: ActionTypes.DOCTORS_DELETE, payload: data.id })
             }).catch((error) => {
@@ -81,16 +81,56 @@ export const deleteDoctors = (data) => async (dispatch) => {
 
 export const updateDoctors = (data) => async (dispatch) => {
 
-    console.log(data.id);
+    console.log(data);
     try {
         const DoctorRef = doc(db, "Doctor", data.id);
 
-        await updateDoc(DoctorRef, {
-            fname: data.fname,
-            lname: data.lname,
-            specialty: data.specialty
-        });
-        dispatch({ type: ActionTypes.DOCTORS_UPDATE, payload: data })
+        if (typeof data.profile_img === "string") {
+
+            await updateDoc(DoctorRef, {
+                fname: data.fname,
+                lname: data.lname,
+                specialty: data.specialty
+            });
+            dispatch({ type: ActionTypes.DOCTORS_UPDATE, payload: data })
+
+        } else {
+            console.log("change");
+
+            const delDoctorRef = ref(storage, 'Doctor/' + data.fileName);
+            let rendomNumber = Math.floor(Math.random() * 100000).toString()
+            const insDoctorRef = ref(storage, 'Doctor/' + rendomNumber);
+
+            deleteObject(delDoctorRef)       //1
+                .then(async () => {
+                    uploadBytes(insDoctorRef, data.profile_img) //2
+
+                        .then((snapshot) => {
+                            getDownloadURL(ref(storage, snapshot.ref)) //3
+                                .then(async (url) => {
+                                    console.log(url);
+                                    await updateDoc(DoctorRef, {   //4
+                                        fname: data.fname,
+                                        lname: data.lname,
+                                        specialty: data.specialty,
+                                        fileName: rendomNumber,
+                                        profile_img: url
+                                    });
+                                    //5
+                                    dispatch({
+                                        type: ActionTypes.DOCTORS_UPDATE, payload:
+                                        {
+                                            ...data,
+                                            fileName: rendomNumber,
+                                            profile_img: url
+                                        }
+                                    })
+
+                                })
+                        })
+                })
+        }
+
     } catch (error) {
         dispatch(errorDoctors(error.message));
     }
