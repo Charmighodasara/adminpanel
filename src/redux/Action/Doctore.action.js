@@ -66,7 +66,7 @@ export const deleteDoctors = (data) => async (dispatch) => {
     try {
         console.log(data);
 
-        const doctorRef = ref(storage, 'Doctor/' + data.row.fileName);
+        const doctorRef = ref(storage, 'Doctor/' + data.fileName);
         deleteObject(doctorRef)
             .then(async() => {
                 await deleteDoc(doc(db, "Doctor", data.id));
