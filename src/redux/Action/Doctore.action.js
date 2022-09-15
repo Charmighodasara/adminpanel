@@ -50,7 +50,9 @@ export const addDoctors = (data) => async (dispatch) => {
                             type: ActionTypes.DOCTORS_ADDDATA, payload: {
                                 id: docRef.id,
                                 ...data,
+                                fileName: rendomNumber,
                                 profile_img: url
+
                             }
                         })
                     })
