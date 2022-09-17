@@ -147,7 +147,7 @@ function Patients(props) {
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDid(params) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleClickDopen(); setDid(params.row) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>

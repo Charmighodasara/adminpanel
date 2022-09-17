@@ -26,7 +26,7 @@ export const getMedicines = () => async (dispatch) => {
 export const addMedicines = (data) => async (dispatch) => {
     console.log(data);
     try {
-        let rendomNumber = Math.floor(Math.random()* 10000).toString()
+        let rendomNumber = Math.floor(Math.random() * 10000).toString()
         console.log(rendomNumber);
         const MedicineRef = ref(storage, 'Medicine/' + rendomNumber);
 
@@ -45,7 +45,8 @@ export const addMedicines = (data) => async (dispatch) => {
                             {
                                 id: docRef.id,
                                 ...data,
-                                profile_img: url
+                                profile_img: url,
+                                fileName: rendomNumber
                             }
                         })
 
@@ -65,7 +66,7 @@ export const deleteMedicines = (data) => async (dispatch) => {
     try {
         console.log(data);
 
-        const medicineRef = ref(storage, 'Medicine/' + data.row.fileName);
+        const medicineRef = ref(storage, 'Medicine/' + data.fileName);
         deleteObject(medicineRef)
             .then(async () => {
                 await deleteDoc(doc(db, "Medicine", data.id));
@@ -82,16 +83,52 @@ export const deleteMedicines = (data) => async (dispatch) => {
 export const updateMedicines = (data) => async (dispatch) => {
     console.log(data);
     try {
-        const washingtonRef = doc(db, "Medicine", data.id);
+        const medicineRef = doc(db, "Medicine", data.id);
 
-        // Set the "capital" field of the city 'DC'
-        await updateDoc(washingtonRef, {
-            name: data.name,
-            price: data.price,
-            quantity: data.quantity,
-            expiry: data.expiry
-        });
-        dispatch({ type: Actiontypes.MEDICINE_UPDATE, payload: data })
+        if (typeof data.profile_img === "string") {
+            await updateDoc(medicineRef, {
+                name: data.name,
+                price: data.price,
+                quantity: data.quantity,
+                expiry: data.expiry
+            });
+            dispatch({ type: Actiontypes.MEDICINE_UPDATE, payload: data })
+        } else {
+
+            const delMedicineRef = ref(storage, 'Medicine/' + data.fileName);
+            let rendomNumber = Math.floor(Math.random() * 10000).toString()
+            const insertMedicineRef = ref(storage, 'Medicine/' + rendomNumber);
+            // 1
+            deleteObject(delMedicineRef)
+                .then(async () => {
+                    uploadBytes(insertMedicineRef, data.profile_img)
+                        .then((snapshot) => {
+                            console.log('Uploaded a blob or file!');
+                            getDownloadURL(ref(storage, snapshot.ref))
+                                .then(async (url) => {
+                                    console.log(url);
+                                    await updateDoc(medicineRef, {
+                                        name: data.name,
+                                        price: data.price,
+                                        quantity: data.quantity,
+                                        expiry: data.expiry,
+                                        fileName: rendomNumber,
+                                        profile_img: url
+                                    });
+                                    dispatch({
+                                        type: Actiontypes.MEDICINE_UPDATE, payload: {
+                                            ...data,
+                                            fileName: rendomNumber,
+                                            profile_img: url
+                                        }
+                                    })
+
+                                })
+                        })
+                })
+
+        }
+
     } catch (error) {
         dispatch(errorMedicines(error.message));
     }

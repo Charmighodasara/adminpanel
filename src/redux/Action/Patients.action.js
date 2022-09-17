@@ -48,7 +48,8 @@ export const addPatients = (data) => async (dispatch) => {
                             {
                                 id: docRef.id,
                                 ...data,
-                                profile_img: url
+                                profile_img: url,
+                                fileName: rendomNumber
                             }
                         })
 
@@ -65,7 +66,7 @@ export const deletePatients = (data) => async (dispatch) => {
     try {
         console.log(data);
 
-        const patientsRef = ref(storage, 'Patients/' + data.row.fileName);
+        const patientsRef = ref(storage, 'Patients/' + data.fileName);
         deleteObject(patientsRef)
             .then(async () => {
                 await deleteDoc(doc(db, "Patients", data.id));
@@ -84,14 +85,47 @@ export const updatePatients = (data) => async (dispatch) => {
     console.log(data);
     try {
         const PatientsRef = doc(db, "Patients", data.id);
+        if (typeof data.profile_img === "string") {
 
-        await updateDoc(PatientsRef, {
-            name: data.name,
-            age: data.age,
-            phone: data.phone,
-            city: data.city,
-        });
-        dispatch({ type: Actiontypes.PATIENTS_UPDATE, payload: data })
+            await updateDoc(PatientsRef, {
+                name: data.name,
+                age: data.age,
+                phone: data.phone,
+                city: data.city,
+            });
+            dispatch({ type: Actiontypes.PATIENTS_UPDATE, payload: data })
+        } else {
+            const delPatientsRef = ref(storage, 'Patients/' + data.fileName);
+            let rendomNumber = Math.floor(Math.random() * 1000000).toString()
+            const insertPatientsRef = ref(storage, 'Patients/' + rendomNumber);
+
+            deleteObject(delPatientsRef)
+                .then(async () => {
+                    uploadBytes(insertPatientsRef, data.profile_img)
+                        .then((snapshot) => {
+                            getDownloadURL(ref(storage, snapshot.ref))
+                                .then(async (url) => {
+                                    console.log(url);
+                                    await updateDoc(PatientsRef, {
+                                        name: data.name,
+                                        age: data.age,
+                                        phone: data.phone,
+                                        city: data.city,
+                                        fileName: rendomNumber,
+                                        profile_img: url
+                                    });
+                                    dispatch({
+                                        type: Actiontypes.PATIENTS_UPDATE, payload: {
+                                            data,
+                                            fileName: rendomNumber,
+                                            profile_img: url
+                                        }
+                                    })
+                                })
+                        })
+                })
+        }
+
     } catch (error) {
         dispatch(errorPatients(error.message))
     }
