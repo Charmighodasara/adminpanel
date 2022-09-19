@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Listitem from './Listitem';
-
-function UseCallback(props) {
-    const [theme, setTheme] = useState(false)
-    const [num, setNum] = useState(0)
+function UsecallbackExample(props) {
+    const [theme, setTheme] = useState(false);
+    const [num, setNum] = useState(0);
 
     const toggle_theme = {
         backgroundColor: theme ? '#000' : '#fff',
@@ -11,7 +10,7 @@ function UseCallback(props) {
     }
 
     const getItem = (inc) => {
-
+       
     }
     return (
         <div style={toggle_theme}>
@@ -22,10 +21,12 @@ function UseCallback(props) {
                 <br />
                 <input type="text" onChange={(e) => setNum(parseInt(e.target.value))} />
                 <br />
-                <Listitem getItem = {getItem} />
+                <Listitem getItem={getItem} />
             </div>
         </div>
     );
 }
 
-export default UseCallback;
+export default UsecallbackExample;
+
+
