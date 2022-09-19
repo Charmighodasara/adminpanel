@@ -95,7 +95,9 @@ let dataObj = [
     { label: "Patients", to: '/patients', icon: <AccessibleIcon /> },
     { label: "Doctors", to: '/doctors', icon: <PersonIcon /> },
     { label: "Counter", to: '/counter', icon: <HourglassBottomIcon /> },
-    { label: "Promise", to: '/Promise', icon: <TocIcon /> }
+    { label: "Promise", to: '/Promise', icon: <TocIcon /> },
+    { label: "useMemo", to: '/usememo', icon: <TocIcon /> },
+    { label: "useCallback", to: '/usecallback', icon: <TocIcon /> },
 ]
 
 export default function Layout({ children }) {

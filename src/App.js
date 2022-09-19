@@ -10,11 +10,13 @@ import { rootCounter } from "./redux/Reducer/Index";
 import Counter from "./containers/counter/Counter";
 import { PersistGate } from 'redux-persist/integration/react'
 import Promise_Example from "./containers/promiseExample/Promise_Example";
+import UseMemoExample from "./containers/promiseExample/UseMemoExample";
+import UseCallback from "./containers/promiseExample/UseCallback";
 
 
 function App() {
 
-  const { store, persistor } = conFigure()
+  const { store, persistor } = conFigure()  
 
   return (
     <>
@@ -27,6 +29,8 @@ function App() {
               <Route path={'/doctors'} exact component={Doctors}></Route>
               <Route path={'/counter'} exact component={Counter}></Route>
               <Route path={'/Promise'} exact component={Promise_Example}></Route>
+              <Route path={'/usememo'} exact component={UseMemoExample}></Route>
+              <Route path={'/usecallback'} exact component={UseCallback}></Route>
             </Switch>
           </Layout>
         </PersistGate>
