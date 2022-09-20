@@ -9,9 +9,12 @@ function UsecallbackExample(props) {
         color: theme ? '#fff' : '#000'
     }
 
-    const getItem = (inc) => {
-       
-    }
+    let getItem = useCallback(
+        (inc) => {
+            return  [inc + num, inc + num + 5, inc + num + 10]
+        }, [num],
+    );
+    
     return (
         <div style={toggle_theme}>
             <h2>useCallback example</h2>
