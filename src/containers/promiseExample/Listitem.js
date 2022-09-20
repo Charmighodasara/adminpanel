@@ -3,17 +3,19 @@ import React, { useEffect, useState } from 'react';
 
 function Listitem({ getItem }) {
 
-    const [item, setItem] = useState(0)
+    const [item, setItem] = useState([])
 
     useEffect(() => {
-        setItem(item)
+        setItem(getItem(5))
     }, [getItem])
 
     return (
         <div>
-         {
-            <p>{item}</p>
-         }
+            {
+                item.map((i) => {
+                    return <p>{i}</p>
+                })
+            }
         </div>
     );
 }
