@@ -11,6 +11,7 @@ function UsecallbackExample(props) {
 
     let getItem = useCallback(
         (inc) => {
+            console.log("useCallback");
             return  [inc + num, inc + num + 5, inc + num + 10]
         }, [num],
     );
